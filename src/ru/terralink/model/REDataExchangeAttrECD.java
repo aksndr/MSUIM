@@ -3,11 +3,7 @@ package ru.terralink.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.joda.time.LocalDate;
 
@@ -833,6 +829,7 @@ import org.joda.time.LocalDate;
         "BONIA",
         "AttrFile"
 })
+@XmlRootElement(name = "REAttrDataExchangeMessage")
 public class REDataExchangeAttrECD {
 
     @XmlElement(name = "Header", required = true)
@@ -840,7 +837,7 @@ public class REDataExchangeAttrECD {
     @XmlElement(name = "OBJECT_REFS")
     protected List<REDataExchangeAttrECD.OBJECT_REFS> OBJECT_REFS;
     @XmlElement(name = "PARTNER_REFS")
-    protected List<REDataExchangeAttrECD.PARTNERREFS> PARTNER_REFS;
+    protected List<REDataExchangeAttrECD.PARTNER_REFS> PARTNER_REFS;
     @XmlElement(name = "GENERAL", required = true)
     protected REDataExchangeAttrECD.GENERAL GENERAL;
     @XmlElement(name = "CONTRACT")
@@ -919,8 +916,16 @@ public class REDataExchangeAttrECD {
         return this.OBJECT_REFS;
     }
 
-    public void setOBJECTREFS(REDataExchangeAttrECD.OBJECT_REFS object_refs) {
-        this.getOBJECTREFS().add(object_refs);
+    public void setOBJECT_REFS(Object object_refs) {
+        this.getOBJECTREFS().add((REDataExchangeAttrECD.OBJECT_REFS)object_refs);
+    }
+
+    public void setPARTNER_REFS(Object partner_refs) {
+        this.getPARTNERREFS().add((REDataExchangeAttrECD.PARTNER_REFS)partner_refs);
+    }
+
+    public void addAttrFile(REDataExchangeAttrFile attrFile) {
+        this.getAttrFile().add(attrFile);
     }
 
     /**
@@ -941,13 +946,13 @@ public class REDataExchangeAttrECD {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link REDataExchangeAttrECD.PARTNERREFS }
+     * {@link REDataExchangeAttrECD.PARTNER_REFS }
      * 
      * 
      */
-    public List<REDataExchangeAttrECD.PARTNERREFS> getPARTNERREFS() {
+    public List<REDataExchangeAttrECD.PARTNER_REFS> getPARTNERREFS() {
         if (PARTNER_REFS == null) {
-            PARTNER_REFS = new ArrayList<REDataExchangeAttrECD.PARTNERREFS>();
+            PARTNER_REFS = new ArrayList<REDataExchangeAttrECD.PARTNER_REFS>();
         }
         return this.PARTNER_REFS;
     }
@@ -2813,7 +2818,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the docnum property.
+         * Gets the value of the DOCNUM property.
          * 
          * @return
          *     possible object is
@@ -2825,7 +2830,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the docnum property.
+         * Sets the value of the DOCNUM property.
          * 
          * @param value
          *     allowed object is
@@ -2837,7 +2842,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the docdate property.
+         * Gets the value of the DOCDATE property.
          * 
          * @return
          *     possible object is
@@ -2849,7 +2854,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the docdate property.
+         * Sets the value of the DOCDATE property.
          * 
          * @param value
          *     allowed object is
@@ -2861,7 +2866,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the docname property.
+         * Gets the value of the DOCNAME property.
          * 
          * @return
          *     possible object is
@@ -2873,7 +2878,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the docname property.
+         * Sets the value of the DOCNAME property.
          * 
          * @param value
          *     allowed object is
@@ -2885,7 +2890,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the nodocnum property.
+         * Gets the value of the NODOCNUM property.
          * 
          * @return
          *     possible object is
@@ -2897,7 +2902,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the nodocnum property.
+         * Sets the value of the NODOCNUM property.
          * 
          * @param value
          *     allowed object is
@@ -2909,7 +2914,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the nodocdate property.
+         * Gets the value of the NODOCDATE property.
          * 
          * @return
          *     possible object is
@@ -2921,7 +2926,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the nodocdate property.
+         * Sets the value of the NODOCDATE property.
          * 
          * @param value
          *     allowed object is
@@ -2933,7 +2938,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the remarks property.
+         * Gets the value of the REMARKS property.
          * 
          * @return
          *     possible object is
@@ -2945,7 +2950,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the remarks property.
+         * Sets the value of the REMARKS property.
          * 
          * @param value
          *     allowed object is
@@ -3407,43 +3412,43 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "doctype",
-        "docgrcode",
-        "docnum",
-        "docdate",
-        "docname",
-        "nodocnum",
-        "nodocdate",
-        "remarks",
-        "rerf",
-        "autordoc"
+            "DOCTYPE",
+            "DOCGR_CODE",
+            "DOCNUM",
+            "DOCDATE",
+            "DOCNAME",
+            "NODOCNUM",
+            "NODOCDATE",
+            "REMARKS",
+            "RERF",
+            "AUTORDOC"
     })
     public static class GENERAL {
 
         @XmlElement(name = "DOCTYPE", required = true)
-        protected String doctype;
+        protected String DOCTYPE;
         @XmlElement(name = "DOCGR_CODE", required = true)
-        protected String docgrcode;
+        protected String DOCGR_CODE;
         @XmlElement(name = "DOCNUM", required = true)
-        protected String docnum;
+        protected String DOCNUM;
         @XmlElement(name = "DOCDATE", required = true)
-        @XmlSchemaType(name = "date")
-        protected XMLGregorianCalendar docdate;
+        //@XmlSchemaType(name = "date")
+        protected LocalDate DOCDATE;
         @XmlElement(name = "DOCNAME")
-        protected String docname;
+        protected String DOCNAME;
         @XmlElement(name = "NODOCNUM")
-        protected Boolean nodocnum;
+        protected Boolean NODOCNUM;
         @XmlElement(name = "NODOCDATE")
-        protected Boolean nodocdate;
+        protected Boolean NODOCDATE;
         @XmlElement(name = "REMARKS")
-        protected String remarks;
+        protected String REMARKS;
         @XmlElement(name = "RERF", required = true)
-        protected String rerf;
+        protected String RERF;
         @XmlElement(name = "AUTORDOC", required = true)
-        protected String autordoc;
+        protected String AUTORDOC;
 
         /**
-         * Gets the value of the doctype property.
+         * Gets the value of the DOCTYPE property.
          * 
          * @return
          *     possible object is
@@ -3451,11 +3456,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCTYPE() {
-            return doctype;
+            return DOCTYPE;
         }
 
         /**
-         * Sets the value of the doctype property.
+         * Sets the value of the DOCTYPE property.
          * 
          * @param value
          *     allowed object is
@@ -3463,11 +3468,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCTYPE(String value) {
-            this.doctype = value;
+            this.DOCTYPE = value;
         }
 
         /**
-         * Gets the value of the docgrcode property.
+         * Gets the value of the DOCGR_CODE property.
          * 
          * @return
          *     possible object is
@@ -3475,11 +3480,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCGRCODE() {
-            return docgrcode;
+            return DOCGR_CODE;
         }
 
         /**
-         * Sets the value of the docgrcode property.
+         * Sets the value of the DOCGR_CODE property.
          * 
          * @param value
          *     allowed object is
@@ -3487,11 +3492,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCGRCODE(String value) {
-            this.docgrcode = value;
+            this.DOCGR_CODE = value;
         }
 
         /**
-         * Gets the value of the docnum property.
+         * Gets the value of the DOCNUM property.
          * 
          * @return
          *     possible object is
@@ -3499,11 +3504,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCNUM() {
-            return docnum;
+            return DOCNUM;
         }
 
         /**
-         * Sets the value of the docnum property.
+         * Sets the value of the DOCNUM property.
          * 
          * @param value
          *     allowed object is
@@ -3511,35 +3516,35 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCNUM(String value) {
-            this.docnum = value;
+            this.DOCNUM = value;
         }
 
         /**
-         * Gets the value of the docdate property.
+         * Gets the value of the DOCDATE property.
          * 
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
          *     
          */
-        public XMLGregorianCalendar getDOCDATE() {
-            return docdate;
+        public LocalDate getDOCDATE() {
+            return DOCDATE;
         }
 
         /**
-         * Sets the value of the docdate property.
+         * Sets the value of the DOCDATE property.
          * 
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setDOCDATE(XMLGregorianCalendar value) {
-            this.docdate = value;
+        public void setDOCDATE(LocalDate value) {
+            this.DOCDATE = value;
         }
 
         /**
-         * Gets the value of the docname property.
+         * Gets the value of the DOCNAME property.
          * 
          * @return
          *     possible object is
@@ -3547,11 +3552,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCNAME() {
-            return docname;
+            return DOCNAME;
         }
 
         /**
-         * Sets the value of the docname property.
+         * Sets the value of the DOCNAME property.
          * 
          * @param value
          *     allowed object is
@@ -3559,11 +3564,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCNAME(String value) {
-            this.docname = value;
+            this.DOCNAME = value;
         }
 
         /**
-         * Gets the value of the nodocnum property.
+         * Gets the value of the NODOCNUM property.
          * 
          * @return
          *     possible object is
@@ -3571,11 +3576,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public Boolean isNODOCNUM() {
-            return nodocnum;
+            return NODOCNUM;
         }
 
         /**
-         * Sets the value of the nodocnum property.
+         * Sets the value of the NODOCNUM property.
          * 
          * @param value
          *     allowed object is
@@ -3583,11 +3588,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setNODOCNUM(Boolean value) {
-            this.nodocnum = value;
+            this.NODOCNUM = value;
         }
 
         /**
-         * Gets the value of the nodocdate property.
+         * Gets the value of the NODOCDATE property.
          * 
          * @return
          *     possible object is
@@ -3595,11 +3600,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public Boolean isNODOCDATE() {
-            return nodocdate;
+            return NODOCDATE;
         }
 
         /**
-         * Sets the value of the nodocdate property.
+         * Sets the value of the NODOCDATE property.
          * 
          * @param value
          *     allowed object is
@@ -3607,11 +3612,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setNODOCDATE(Boolean value) {
-            this.nodocdate = value;
+            this.NODOCDATE = value;
         }
 
         /**
-         * Gets the value of the remarks property.
+         * Gets the value of the REMARKS property.
          * 
          * @return
          *     possible object is
@@ -3619,11 +3624,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getREMARKS() {
-            return remarks;
+            return REMARKS;
         }
 
         /**
-         * Sets the value of the remarks property.
+         * Sets the value of the REMARKS property.
          * 
          * @param value
          *     allowed object is
@@ -3631,11 +3636,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setREMARKS(String value) {
-            this.remarks = value;
+            this.REMARKS = value;
         }
 
         /**
-         * Gets the value of the rerf property.
+         * Gets the value of the RERF property.
          * 
          * @return
          *     possible object is
@@ -3643,11 +3648,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getRERF() {
-            return rerf;
+            return RERF;
         }
 
         /**
-         * Sets the value of the rerf property.
+         * Sets the value of the RERF property.
          * 
          * @param value
          *     allowed object is
@@ -3655,11 +3660,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setRERF(String value) {
-            this.rerf = value;
+            this.RERF = value;
         }
 
         /**
-         * Gets the value of the autordoc property.
+         * Gets the value of the AUTORDOC property.
          * 
          * @return
          *     possible object is
@@ -3667,11 +3672,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getAUTORDOC() {
-            return autordoc;
+            return AUTORDOC;
         }
 
         /**
-         * Sets the value of the autordoc property.
+         * Sets the value of the AUTORDOC property.
          * 
          * @param value
          *     allowed object is
@@ -3679,7 +3684,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setAUTORDOC(String value) {
-            this.autordoc = value;
+            this.AUTORDOC = value;
         }
 
     }
@@ -5203,24 +5208,24 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "partnerref",
-        "link",
-        "docguid",
-        "delete"
+            "PARTNER_REF",
+            "LINK",
+            "DOCGUID",
+            "Delete"
     })
-    public static class PARTNERREFS {
+    public static class PARTNER_REFS {
 
         @XmlElement(name = "PARTNER_REF", required = true)
-        protected String partnerref;
+        protected String PARTNER_REF;
         @XmlElement(name = "LINK")
-        protected String link;
+        protected String LINK;
         @XmlElement(name = "DOCGUID", required = true)
-        protected String docguid;
+        protected String DOCGUID;
         @XmlElement(name = "Delete")
-        protected Boolean delete;
+        protected Boolean Delete;
 
         /**
-         * Gets the value of the partnerref property.
+         * Gets the value of the PARTNER_REF property.
          * 
          * @return
          *     possible object is
@@ -5228,11 +5233,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getPARTNERREF() {
-            return partnerref;
+            return PARTNER_REF;
         }
 
         /**
-         * Sets the value of the partnerref property.
+         * Sets the value of the PARTNER_REF property.
          * 
          * @param value
          *     allowed object is
@@ -5240,7 +5245,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setPARTNERREF(String value) {
-            this.partnerref = value;
+            this.PARTNER_REF = value;
         }
 
         /**
@@ -5252,7 +5257,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getLINK() {
-            return link;
+            return LINK;
         }
 
         /**
@@ -5264,7 +5269,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setLINK(String value) {
-            this.link = value;
+            this.LINK = value;
         }
 
         /**
@@ -5276,7 +5281,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCGUID() {
-            return docguid;
+            return DOCGUID;
         }
 
         /**
@@ -5288,7 +5293,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCGUID(String value) {
-            this.docguid = value;
+            this.DOCGUID = value;
         }
 
         /**
@@ -5300,7 +5305,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public Boolean isDelete() {
-            return delete;
+            return Delete;
         }
 
         /**
@@ -5312,7 +5317,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDelete(Boolean value) {
-            this.delete = value;
+            this.Delete = value;
         }
 
     }

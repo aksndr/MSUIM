@@ -1,6 +1,8 @@
 
 package ru.terralink.model;
 
+import org.joda.time.LocalDate;
+
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -105,6 +107,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
         "USERS",
         "USERSTXT",
         "DATUM",
+        "CONTENT",
         "Delete"
 })
 public class REDataExchangeAttrFile {
@@ -112,15 +115,15 @@ public class REDataExchangeAttrFile {
     @XmlElement(name = "File_ID", required = true)
     protected String File_ID;
     @XmlElement(name = "Current_Part", required = true)
-    protected BigInteger Current_Part;
+    protected Integer Current_Part;
     @XmlElement(name = "All_Parts", required = true)
-    protected BigInteger All_Parts;
+    protected Integer All_Parts;
     @XmlElement(name = "Current_Hash", required = true)
     protected String Current_Hash;
     @XmlElement(name = "All_Hash", required = true)
     protected String All_Hash;
     @XmlElement(name = "NOMER", required = true)
-    protected BigInteger NOMER;
+    protected Integer NOMER;
     @XmlElement(name = "FILE_NAME", required = true)
     protected String FILE_NAME;
     @XmlElement(name = "USERS")
@@ -128,8 +131,10 @@ public class REDataExchangeAttrFile {
     @XmlElement(name = "USERSTXT")
     protected String USERSTXT;
     @XmlElement(name = "DATUM", required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar DATUM;
+    //@XmlSchemaType(name = "date")
+    protected LocalDate DATUM;
+    @XmlElement(name = "CONTENT", required = true)
+    protected byte[] CONTENT;
     @XmlElement(name = "Delete")
     protected Boolean Delete;
 
@@ -165,7 +170,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getCurrentPart() {
+    public Integer getCurrentPart() {
         return Current_Part;
     }
 
@@ -177,7 +182,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public void setCurrentPart(BigInteger value) {
+    public void setCurrentPart(Integer value) {
         this.Current_Part = value;
     }
 
@@ -189,7 +194,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getAllParts() {
+    public Integer getAllParts() {
         return All_Parts;
     }
 
@@ -201,7 +206,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public void setAllParts(BigInteger value) {
+    public void setAllParts(Integer value) {
         this.All_Parts = value;
     }
 
@@ -261,7 +266,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getNOMER() {
+    public Integer getNOMER() {
         return NOMER;
     }
 
@@ -273,7 +278,7 @@ public class REDataExchangeAttrFile {
      *     {@link BigInteger }
      *     
      */
-    public void setNOMER(BigInteger value) {
+    public void setNOMER(Integer value) {
         this.NOMER = value;
     }
 
@@ -357,7 +362,7 @@ public class REDataExchangeAttrFile {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDATUM() {
+    public LocalDate getDATUM() {
         return DATUM;
     }
 
@@ -369,8 +374,16 @@ public class REDataExchangeAttrFile {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDATUM(XMLGregorianCalendar value) {
+    public void setDATUM(LocalDate value) {
         this.DATUM = value;
+    }
+
+    public byte[] getContent() {
+        return CONTENT;
+    }
+
+    public void setContent(byte[] content) {
+        this.CONTENT = content;
     }
 
     /**

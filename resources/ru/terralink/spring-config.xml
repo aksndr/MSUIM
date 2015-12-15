@@ -3,9 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-       <bean id="HEADER"           class="ru.terralink.model.REDataExchangeHeader"/>
-       <bean id="OBJECT_REFS"      class="ru.terralink.model.REDataExchangeAttrECD$OBJECT_REFS"/>
-       <bean id="PARTNER_REFS"     class="ru.terralink.model.REDataExchangeAttrECD.PARTNERREFS"/>
+       <bean id="Header"           class="ru.terralink.model.REDataExchangeHeader"/>
+       <bean id="OBJECT_REFS"      class="ru.terralink.model.REDataExchangeAttrECD.OBJECT_REFS"/>
+       <bean id="PARTNER_REFS"     class="ru.terralink.model.REDataExchangeAttrECD.PARTNER_REFS"/>
        <bean id="GENERAL"          class="ru.terralink.model.REDataExchangeAttrECD.GENERAL"/>
        <bean id="CONTRACT"         class="ru.terralink.model.REDataExchangeAttrECD.CONTRACT"/>
        <bean id="FINDOC"           class="ru.terralink.model.REDataExchangeAttrECD.FINDOC"/>

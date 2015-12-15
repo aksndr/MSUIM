@@ -66,11 +66,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link REDataExchangeAttrECD.PARTNERREFS }
+     * Create an instance of {@link REDataExchangeAttrECD.PARTNER_REFS }
      * 
      */
-    public REDataExchangeAttrECD.PARTNERREFS createREDataExchangeAttrECDPARTNERREFS() {
-        return new REDataExchangeAttrECD.PARTNERREFS();
+    public REDataExchangeAttrECD.PARTNER_REFS createREDataExchangeAttrECDPARTNERREFS() {
+        return new REDataExchangeAttrECD.PARTNER_REFS();
     }
 
     /**

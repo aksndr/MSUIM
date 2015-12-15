@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://inform.gazprom.ru/C/SUIM/REDataExchange" targetNamespace="http://inform.gazprom.ru/C/SUIM/REDataExchange">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://inform.gazprom.ru/C/SUIM/REDataExchange" targetNamespace="http://inform.gazprom.ru/C/SUIM/REDataExchange">
    <xsd:element name="REAttrDataExchangeMessage" type="REDataExchangeAttrECD" />
    <xsd:complexType name="REDataExchangeHeader">
       <xsd:sequence>
@@ -206,6 +207,11 @@
                <xsd:documentation>
                Дата прикрепления файла
                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CONTENT" type="xsd:base64Binary">
+            <xsd:annotation>
+               <xsd:documentation>Бинарные данные вложения</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
          <xsd:element name="Delete" type="xsd:boolean" minOccurs="0">
