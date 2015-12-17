@@ -148,42 +148,28 @@ public class MSUIMClient {
         logger.info("Started addAttachment");
         if (attributes != null) {
             try {
-                byte[] content = (byte[]) attributes.get("CONTENT");
-                logger.info("Attachment size: " + content.length);
-                if (content != null) {
-                    String File_ID = attributes.containsKey("File_ID") ? String.valueOf(attributes.get("File_ID")) : "";
-                    String FILE_NAME = attributes.containsKey("FILE_NAME") ? String.valueOf(attributes.get("FILE_NAME")) : "";
-                    Integer NOMER = attributes.containsKey("NOMER") ? (Integer) attributes.get("NOMER") : 0;
-                    String USERS = attributes.containsKey("USERS") ? String.valueOf(attributes.get("USERS")) : "";
-                    String USERSTXT = attributes.containsKey("USERSTXT") ? String.valueOf(attributes.get("USERSTXT")) : "";
-                    LocalDate DATUM = attributes.containsKey("DATUM") ? Utils.getLocalDate(String.valueOf(attributes.get("DATUM"))) : null;
-                    Boolean Delete = attributes.containsKey("Delete") ? (Boolean) attributes.get("Delete") : false;
-                    Integer chunkSize = attributes.containsKey("chunkSize") ? (Integer) attributes.get("chunkSize") : 5;
+                String File_ID = attributes.containsKey("File_ID") ? String.valueOf(attributes.get("File_ID")) : "";
+                String FILE_NAME = attributes.containsKey("FILE_NAME") ? String.valueOf(attributes.get("FILE_NAME")) : "";
+                Integer NOMER = attributes.containsKey("NOMER") ? (Integer) attributes.get("NOMER") : 0;
+                String USERS = attributes.containsKey("USERS") ? String.valueOf(attributes.get("USERS")) : "";
+                String USERSTXT = attributes.containsKey("USERSTXT") ? String.valueOf(attributes.get("USERSTXT")) : "";
+                LocalDate DATUM = attributes.containsKey("DATUM") ? Utils.getLocalDate(String.valueOf(attributes.get("DATUM"))) : null;
+                Boolean Delete = attributes.containsKey("Delete") ? (Boolean) attributes.get("Delete") : false;
 
-                    String totalHash = Utils.getSha1Hash(content);
-                    List<byte[]> chunks = Utils.splitContent(content, chunkSize);
-                    int currentPartNum = 1;
-                    int totalPartsNum = chunks.size();
-                    for (byte[] chunk : chunks) {
-                        String chunkHash = Utils.getSha1Hash(chunk);
+                REDataExchangeAttrFile AttrFile = new REDataExchangeAttrFile();
+                AttrFile.setFileID(File_ID);
+                AttrFile.setFILENAME(FILE_NAME);
+                AttrFile.setNOMER(NOMER);
+                AttrFile.setUSERS(USERS);
+                AttrFile.setUSERSTXT(USERSTXT);
+                AttrFile.setDATUM(DATUM);
+                AttrFile.setDelete(Delete);
+                AttrFile.setCurrentPart(1);
+                AttrFile.setCurrentHash("");
+                AttrFile.setAllParts(1);
+                AttrFile.setAllHash("");
 
-                        REDataExchangeAttrFile AttrFile = new REDataExchangeAttrFile();
-                        AttrFile.setFileID(File_ID);
-                        AttrFile.setFILENAME(FILE_NAME);
-                        AttrFile.setNOMER(NOMER);
-                        AttrFile.setUSERS(USERS);
-                        AttrFile.setUSERSTXT(USERSTXT);
-                        AttrFile.setDATUM(DATUM);
-                        AttrFile.setDelete(Delete);
-                        AttrFile.setCurrentPart(currentPartNum);
-                        AttrFile.setCurrentHash(chunkHash);
-                        AttrFile.setAllParts(totalPartsNum);
-                        AttrFile.setAllHash(totalHash);
-
-                        message.addAttrFile(AttrFile);
-                        currentPartNum++;
-                    }
-                }
+                message.addAttrFile(AttrFile);
             } catch (Exception e) {
                 String errMsg = "Error in addAttachment method. Exception: " + e.toString();
                 logger.error(errMsg);
