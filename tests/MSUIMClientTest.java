@@ -19,7 +19,7 @@ public class MSUIMClientTest {
     private static final String FILE_NAME = "css.pdf";
     private MSUIMClient client;
 
-    private static final String serverUrl = "http://localhost:8088/mockREAttrDataExchangeOutBinding?wsdl";
+    private static final String serverUrl = "http://localhost:8018/mockREAttrDataExchangeOutBinding?wsdl";
     private static final String login = "";
     private static final String pass = "";
 
@@ -67,7 +67,6 @@ public class MSUIMClientTest {
         client.addAttachment(getAttrFile());
         client.getMessage();
         client.doWork();
-
 
     }
 

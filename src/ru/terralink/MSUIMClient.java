@@ -1,7 +1,6 @@
 package ru.terralink;
 
 import com.sun.xml.internal.ws.client.BindingProviderProperties;
-import com.sun.xml.ws.resources.SoapMessages;
 import org.joda.time.LocalDate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,6 +20,7 @@ import javax.xml.ws.Service;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -60,7 +60,7 @@ public class MSUIMClient {
             logger.error("Failed to get ClassPathXmlApplicationContext. Error: ", be);
             return failed("Failed to get ClassPathXmlApplicationContext. Error: " + be.toString());
         }
-        return succeed();
+        return isAllowedWebService();
     }
 
     public void doWork() {
@@ -70,29 +70,6 @@ public class MSUIMClient {
         } catch (MalformedURLException e) {
             logger.error(e.getMessage());
         }
-    }
-
-    private REAttrDataExchangeOut getService(String url, String login, String pass) throws MalformedURLException {
-        URL wsdlUrl = new URL(url);
-        QName qName = new QName(NAME_SPACE_URL, WS_NAME);
-        Service service = Service.create(wsdlUrl, qName);
-        REAttrDataExchangeOut reAttrDataExchangeOut = service.getPort(REAttrDataExchangeOut.class);
-
-        BindingProvider bp = (BindingProvider) reAttrDataExchangeOut;
-
-        Map<String, Object> requestContext = bp.getRequestContext();
-
-        if (url != null) {
-            requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-        }
-
-        requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 5000);
-        requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 25000);
-
-        requestContext.put(BindingProvider.USERNAME_PROPERTY, login);
-        requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
-
-        return reAttrDataExchangeOut;
     }
 
     public Map<String, Object> addSection(String sectionName, Map<String, Object> attributes) {
@@ -188,6 +165,47 @@ public class MSUIMClient {
 
     public Map<String, Object> getSections() {
         return sections;
+    }
+
+    private Map<String, Object> isAllowedWebService() {
+        try {
+            HttpURLConnection connection = (HttpURLConnection)  new URL( this.serviceUrl).openConnection();
+            connection.setRequestMethod("GET");
+            connection.getInputStream();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                logger.error("Web Service is not allowed " + connection.getResponseMessage());
+                return failed("Failed to get ClassPathXmlApplicationContext. Error: " + responseCode);
+            }
+        } catch (Exception e) {
+            logger.error("Web Service is not allowed " + e.getMessage());
+            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + e.getMessage());
+        }
+        return succeed();
+    }
+
+    private REAttrDataExchangeOut getService(String url, String login, String pass) throws MalformedURLException {
+        URL wsdlUrl = new URL(url);
+        QName qName = new QName(NAME_SPACE_URL, WS_NAME);
+        Service service = Service.create(wsdlUrl, qName);
+        REAttrDataExchangeOut reAttrDataExchangeOut = service.getPort(REAttrDataExchangeOut.class);
+
+        BindingProvider bp = (BindingProvider) reAttrDataExchangeOut;
+
+        Map<String, Object> requestContext = bp.getRequestContext();
+
+        if (url != null) {
+            requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        }
+
+        requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 5000);
+        requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 25000);
+
+        requestContext.put(BindingProvider.USERNAME_PROPERTY, login);
+        requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
+
+        return reAttrDataExchangeOut;
     }
 
     private boolean isValidateAddSectionParams(String sectionName, Map<String, Object> attributes) {
