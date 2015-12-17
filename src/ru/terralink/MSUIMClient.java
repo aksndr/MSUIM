@@ -174,13 +174,13 @@ public class MSUIMClient {
             connection.getInputStream();
 
             int responseCode = connection.getResponseCode();
-            if (responseCode != 200) {
+            if (responseCode != 200 || responseCode != 403) {
                 logger.error("Web Service is not allowed " + connection.getResponseMessage());
-                return failed("Failed to get ClassPathXmlApplicationContext. Error: " + responseCode);
+                return failed("Web service is not available. ResponseCode: " + responseCode);
             }
         } catch (Exception e) {
-            logger.error("Web Service is not allowed " + e.getMessage());
-            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + e.getMessage());
+            logger.error("Web service is not available. Error: " + e.getMessage());
+            return failed("Web service is not available. Error: " + e.getMessage());
         }
         return succeed();
     }
