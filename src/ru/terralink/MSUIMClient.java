@@ -211,6 +211,10 @@ public class MSUIMClient {
         return succeed();
     }
 
+    public Map<String, Object> doWork(){
+        return succeed(getMessage().toString());
+    }
+
     public REDataExchangeAttrECD getMessage(){
         return this.message;
     }
