@@ -209,11 +209,6 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="CONTENT" type="xsd:base64Binary">
-            <xsd:annotation>
-               <xsd:documentation>Бинарные данные вложения</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
          <xsd:element name="Delete" type="xsd:boolean" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation>

@@ -2025,63 +2025,23 @@ public class REDataExchangeAttrECD {
 
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="RATINGOBJECT">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="ESTIMATEDORG" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="12"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XESTIMATEDORG" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "ratingobject",
-        "estimatedorg",
-        "xestimatedorg"
+            "RATINGOBJECT",
+            "ESTIMATEDORG",
+            "XESTIMATEDORG"
     })
     public static class CCC {
 
         @XmlElement(name = "RATINGOBJECT", required = true)
-        protected String ratingobject;
+        protected String RATINGOBJECT;
         @XmlElement(name = "ESTIMATEDORG")
-        protected String estimatedorg;
+        protected String ESTIMATEDORG;
         @XmlElement(name = "XESTIMATEDORG")
-        protected String xestimatedorg;
+        protected String XESTIMATEDORG;
 
         /**
-         * Gets the value of the ratingobject property.
+         * Gets the value of the RATINGOBJECT property.
          * 
          * @return
          *     possible object is
@@ -2089,11 +2049,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getRATINGOBJECT() {
-            return ratingobject;
+            return RATINGOBJECT;
         }
 
         /**
-         * Sets the value of the ratingobject property.
+         * Sets the value of the RATINGOBJECT property.
          * 
          * @param value
          *     allowed object is
@@ -2101,11 +2061,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setRATINGOBJECT(String value) {
-            this.ratingobject = value;
+            this.RATINGOBJECT = value;
         }
 
         /**
-         * Gets the value of the estimatedorg property.
+         * Gets the value of the ESTIMATEDORG property.
          * 
          * @return
          *     possible object is
@@ -2113,11 +2073,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getESTIMATEDORG() {
-            return estimatedorg;
+            return ESTIMATEDORG;
         }
 
         /**
-         * Sets the value of the estimatedorg property.
+         * Sets the value of the ESTIMATEDORG property.
          * 
          * @param value
          *     allowed object is
@@ -2125,11 +2085,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setESTIMATEDORG(String value) {
-            this.estimatedorg = value;
+            this.ESTIMATEDORG = value;
         }
 
         /**
-         * Gets the value of the xestimatedorg property.
+         * Gets the value of the XESTIMATEDORG property.
          * 
          * @return
          *     possible object is
@@ -2137,11 +2097,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getXESTIMATEDORG() {
-            return xestimatedorg;
+            return XESTIMATEDORG;
         }
 
         /**
-         * Sets the value of the xestimatedorg property.
+         * Sets the value of the XESTIMATEDORG property.
          * 
          * @param value
          *     allowed object is
@@ -2149,7 +2109,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setXESTIMATEDORG(String value) {
-            this.xestimatedorg = value;
+            this.XESTIMATEDORG = value;
         }
 
     }

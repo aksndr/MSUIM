@@ -107,7 +107,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
         "USERS",
         "USERSTXT",
         "DATUM",
-        "CONTENT",
         "Delete"
 })
 public class REDataExchangeAttrFile {
@@ -133,8 +132,6 @@ public class REDataExchangeAttrFile {
     @XmlElement(name = "DATUM", required = true)
     //@XmlSchemaType(name = "date")
     protected LocalDate DATUM;
-    @XmlElement(name = "CONTENT", required = true)
-    protected byte[] CONTENT;
     @XmlElement(name = "Delete")
     protected Boolean Delete;
 
@@ -376,14 +373,6 @@ public class REDataExchangeAttrFile {
      */
     public void setDATUM(LocalDate value) {
         this.DATUM = value;
-    }
-
-    public byte[] getContent() {
-        return CONTENT;
-    }
-
-    public void setContent(byte[] content) {
-        this.CONTENT = content;
     }
 
     /**

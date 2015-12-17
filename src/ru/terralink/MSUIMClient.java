@@ -1,21 +1,29 @@
 package ru.terralink;
 
+import com.sun.xml.internal.ws.client.BindingProviderProperties;
+import com.sun.xml.ws.resources.SoapMessages;
 import org.joda.time.LocalDate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import ru.terralink.common.Utils;
+import ru.terralink.model.REAttrDataExchangeOut;
 import ru.terralink.model.REDataExchangeAttrECD;
 import ru.terralink.model.REDataExchangeAttrFile;
 
-import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +32,8 @@ import java.util.Map;
 
 public class MSUIMClient {
 
+    private static final String NAME_SPACE_URL = "http://inform.gazprom.ru/C/SUIM/REDataExchange";
+    private static final String WS_NAME = "REAttrDataExchangeOutService";
     private String serviceUrl;
     private String login;
     private String password;
@@ -43,7 +53,7 @@ public class MSUIMClient {
         this.password = password;
     }
 
-    public Map<String, Object> init(){
+    public Map<String, Object> init() {
         try {
             context = new ClassPathXmlApplicationContext("ru/terralink/spring-config.xml");
         } catch (Exception be) {
@@ -53,65 +63,42 @@ public class MSUIMClient {
         return succeed();
     }
 
-    /**public Map<String, Object> addSection(String sectionName, Map<String, Object> attributes){
+    public void doWork() {
         try {
-
-            if (validateAddSectionParams(sectionName, attributes)) return result;
-
-            Object section = context.getBean(sectionName);
-            Field[] fields = section.getClass().getDeclaredFields();
-
-            for (Field field : fields) {
-                field.setAccessible(true);
-                String fieldName = field.getName();
-                String fieldType = field.getType().getName();
-
-                if (attributes.containsKey(fieldName)){
-                    Object fieldValue = attributes.get(fieldName);
-                    String stringValue = String.valueOf(fieldValue);
-                    if (fieldType.equals("org.joda.time.LocalDate")) {
-                        field.set(section, Utils.getLocalDate(stringValue));
-                    } else if (fieldType.equals("java.lang.String")) {
-                        field.set(section, stringValue);
-                    } else {
-                        field.set(section, fieldValue);
-                    }
-                }
-                logger.info("Got field: " + fieldName.toUpperCase() + " field type: " + fieldType);
-            }
-            sections.put(sectionName,section);
-        } catch (IllegalAccessException | ParseException e) {
-            logger.error("Error in buildMessage method. ", e);
-            return failed(e.getMessage());
+            REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
+            reAttrDataExchangeOut.reAttrDataExchangeOut(message);
+        } catch (MalformedURLException e) {
+            logger.error(e.getMessage());
         }
-        return succeed();
     }
 
-    public Map<String, Object> buildMessage(){
-        try {
-            Field[] fields = message.getClass().getDeclaredFields();
+    private REAttrDataExchangeOut getService(String url, String login, String pass) throws MalformedURLException {
+        URL wsdlUrl = new URL(url);
+        QName qName = new QName(NAME_SPACE_URL, WS_NAME);
+        Service service = Service.create(wsdlUrl, qName);
+        REAttrDataExchangeOut reAttrDataExchangeOut = service.getPort(REAttrDataExchangeOut.class);
 
-            for (Field field : fields) {
-                field.setAccessible(true);
-                String fieldName = field.getName();
-                String fieldType = field.getType().getName();
+        BindingProvider bp = (BindingProvider) reAttrDataExchangeOut;
 
-                if (sections.containsKey(fieldName)){
-                    Object section = sections.get(fieldName);
-                    field.set(message, section);
-                }
+        Map<String, Object> requestContext = bp.getRequestContext();
 
-                logger.info("Got field: " + fieldName.toUpperCase() + " field type: " + fieldType);
-            }
-        } catch (IllegalAccessException e) {
-            logger.error("Error in buildMessage method. ", e);
-            return failed(e.getMessage());
+        if (url != null) {
+            requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
-        return succeed();
-    }*/
+
+        requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 5000);
+        requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 25000);
+
+        requestContext.put(BindingProvider.USERNAME_PROPERTY, login);
+        requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
+
+        return reAttrDataExchangeOut;
+    }
 
     public Map<String, Object> addSection(String sectionName, Map<String, Object> attributes) {
-        if (validateAddSectionParams(sectionName, attributes)) return result;
+        if (isValidateAddSectionParams(sectionName, attributes)) {
+            return result;
+        }
 
         try {
             Field field = message.getClass().getDeclaredField(sectionName);
@@ -121,7 +108,7 @@ public class MSUIMClient {
 
             Object section = context.getBean(sectionName);
 
-            if (fieldType.equals("java.util.List")){
+            if (fieldType.equals("java.util.List")) {
                 String methodName = "set" + fieldName;
                 Method method = message.getClass().getMethod(methodName, Object.class);
                 method.invoke(message, section);
@@ -135,7 +122,7 @@ public class MSUIMClient {
                 String sectionFieldName = sectionField.getName();
                 String sectionFieldType = sectionField.getType().getName();
 
-                if (attributes.containsKey(sectionFieldName)){
+                if (attributes.containsKey(sectionFieldName)) {
                     Object fieldValue = attributes.get(sectionFieldName);
                     String stringValue = String.valueOf(fieldValue);
                     if (sectionFieldType.equals("org.joda.time.LocalDate")) {
@@ -150,29 +137,28 @@ public class MSUIMClient {
             }
 
         } catch (IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ParseException e) {
-            String errMsg = "Error in buildMessage method. Exception: "+ e.toString();
+            String errMsg = "Error in buildMessage method. Exception: " + e.toString();
             logger.error(errMsg);
             return failed(errMsg);
         }
         return succeed();
     }
 
-    public Map<String, Object> addAttachment(Map<String, Object> attributes){
+    public Map<String, Object> addAttachment(Map<String, Object> attributes) {
         logger.info("Started addAttachment");
-        if (attributes != null && attributes.containsKey("CONTENT")) {
+        if (attributes != null) {
             try {
                 byte[] content = (byte[]) attributes.get("CONTENT");
                 logger.info("Attachment size: " + content.length);
                 if (content != null) {
-
                     String File_ID = attributes.containsKey("File_ID") ? String.valueOf(attributes.get("File_ID")) : "";
                     String FILE_NAME = attributes.containsKey("FILE_NAME") ? String.valueOf(attributes.get("FILE_NAME")) : "";
-                    Integer NOMER = attributes.containsKey("NOMER") ? (Integer)attributes.get("NOMER") : 0;
+                    Integer NOMER = attributes.containsKey("NOMER") ? (Integer) attributes.get("NOMER") : 0;
                     String USERS = attributes.containsKey("USERS") ? String.valueOf(attributes.get("USERS")) : "";
                     String USERSTXT = attributes.containsKey("USERSTXT") ? String.valueOf(attributes.get("USERSTXT")) : "";
                     LocalDate DATUM = attributes.containsKey("DATUM") ? Utils.getLocalDate(String.valueOf(attributes.get("DATUM"))) : null;
-                    Boolean Delete = attributes.containsKey("Delete") ? (Boolean)attributes.get("Delete") : false;
-                    Integer chunkSize = attributes.containsKey("chunkSize") ? (Integer)attributes.get("chunkSize") : 5;
+                    Boolean Delete = attributes.containsKey("Delete") ? (Boolean) attributes.get("Delete") : false;
+                    Integer chunkSize = attributes.containsKey("chunkSize") ? (Integer) attributes.get("chunkSize") : 5;
 
                     String totalHash = Utils.getSha1Hash(content);
                     List<byte[]> chunks = Utils.splitContent(content, chunkSize);
@@ -193,14 +179,13 @@ public class MSUIMClient {
                         AttrFile.setCurrentHash(chunkHash);
                         AttrFile.setAllParts(totalPartsNum);
                         AttrFile.setAllHash(totalHash);
-                        AttrFile.setContent(chunk);
 
                         message.addAttrFile(AttrFile);
                         currentPartNum++;
                     }
                 }
             } catch (Exception e) {
-                String errMsg = "Error in addAttachment method. Exception: "+ e.toString();
+                String errMsg = "Error in addAttachment method. Exception: " + e.toString();
                 logger.error(errMsg);
                 return failed(errMsg);
             }
@@ -211,44 +196,40 @@ public class MSUIMClient {
         return succeed();
     }
 
-    public Map<String, Object> doWork(){
-        return succeed(getMessage().toString());
-    }
-
-    public REDataExchangeAttrECD getMessage(){
+    public REDataExchangeAttrECD getMessage() {
         return this.message;
     }
 
-    public Map<String, Object> getSections(){
+    public Map<String, Object> getSections() {
         return sections;
     }
 
-    private boolean validateAddSectionParams(String sectionName, Map<String, Object> attributes) {
-        if (sectionName == null || "".equals(sectionName)){
+    private boolean isValidateAddSectionParams(String sectionName, Map<String, Object> attributes) {
+        if (!StringUtils.isEmpty(sectionName)) {
             result = failed("Section name were undefined");
-            return true;
+            return false;
         }
-        if (attributes == null || Collections.EMPTY_MAP.equals(attributes) ){
+        if (!CollectionUtils.isEmpty(attributes)) {
             result = failed("Attributes is undefined");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
-    private static Map<String, Object> succeed(){
+    private static Map<String, Object> succeed() {
         Map<String, Object> result = new HashMap<>();
         result.put("ok", true);
         return result;
     }
 
-    private static Map<String, Object> succeed(Object value){
+    private static Map<String, Object> succeed(Object value) {
         Map<String, Object> result = new HashMap<>();
         result.put("ok", true);
         result.put("value", value);
         return result;
     }
 
-    private static Map<String, Object> failed(String errMsg){
+    private static Map<String, Object> failed(String errMsg) {
         Map<String, Object> result = new HashMap<>();
         result.put("ok", false);
         result.put("errMsg", errMsg);
