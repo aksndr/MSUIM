@@ -61,13 +61,16 @@ public class MSUIMClient {
         return isAllowedWebService();
     }
 
-    public void doWork() {
+    public Map<String, Object> doWork() {
         try {
             REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
             reAttrDataExchangeOut.reAttrDataExchangeOut(message);
         } catch (MalformedURLException e) {
-            logger.error(e.getMessage());
+            String errMsg = "Error in doWork method. Exception: " + e.toString();
+            logger.error(errMsg);
+            return failed(errMsg);
         }
+        return succeed();
     }
 
     public Map<String, Object> addSection(String sectionName, Map<String, Object> attributes) {

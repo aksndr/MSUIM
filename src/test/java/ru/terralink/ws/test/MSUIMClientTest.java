@@ -51,6 +51,9 @@ public class MSUIMClientTest {
         result = client.addAttachment(getAttrFile());
         assertTrue((Boolean) result.get("ok"));
 
+        result = client.doWork();
+        assertTrue((Boolean) result.get("ok"));
+
         REDataExchangeAttrECD message = client.getMessage();
         Utils.marshalObject("./marshalled.xml", message);
 
