@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.terralink.ws</groupId>
-    <artifactId>gazprom-ius-p-phg2</artifactId>
+    <artifactId>msuim</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>2.0</version>
 
     <properties>
         <spring.version>4.2.3.RELEASE</spring.version>
@@ -114,6 +114,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!--<finalName>msuim-${version}</finalName>-->
                     <descriptors>
                         <descriptor>src/main/assembly/test-jar-with-dependencies.xml</descriptor>
                     </descriptors>

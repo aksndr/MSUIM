@@ -54,9 +54,9 @@ public class MSUIMClient {
     public Map<String, Object> init() {
         try {
             context = new ClassPathXmlApplicationContext("spring/terralink/spring-config.xml");
-        } catch (Exception be) {
-            logger.error("Failed to get ClassPathXmlApplicationContext. Error: ", be);
-            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + be.toString());
+        } catch (Exception e) {
+            logger.error("Failed to get ClassPathXmlApplicationContext. Error: ", e);
+            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + e.toString());
         }
         return isAllowedWebService();
     }
@@ -82,6 +82,7 @@ public class MSUIMClient {
             String fieldType = field.getType().getName();
 
             Object section = context.getBean(sectionName);
+            logger.info("Got section: " + sectionName);
 
             if (fieldType.equals("java.util.List")) {
                 String methodName = "set" + fieldName;
@@ -107,8 +108,8 @@ public class MSUIMClient {
                     } else {
                         sectionField.set(section, fieldValue);
                     }
+                    logger.info("Got field: " + sectionFieldName + " field type: " + sectionFieldType+ " value: " + stringValue);
                 }
-                logger.info("Got field: " + sectionFieldName.toUpperCase() + " field type: " + sectionFieldType);
             }
 
         } catch (IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ParseException e) {

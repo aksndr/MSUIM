@@ -1,5 +1,6 @@
 package ru.terralink.ws.test;
 
+import org.springframework.core.io.ClassPathResource;
 import ru.terralink.common.Utils;
 import ru.terralink.ws.client.MSUIMClient;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
@@ -16,11 +17,9 @@ import static org.junit.Assert.*;
 //Created by Arzamastsev on 14.12.2015.
 public class MSUIMClientTest {
 
-    private static final String PATH_DIRECTORY = System.getProperty("user.home") + "\\temp\\Test files";
-    private static final String FILE_NAME = "css.pdf";
     private MSUIMClient client;
 
-    private static final String serverUrl = "http://localhost:8088/mockREAttrDataExchangeOutBinding?wsdl";
+    private static final String serverUrl = "http://localhost:8088/mockREAttrDataExchangeOutBinding?WSDL";
     private static final String login = "";
     private static final String pass = "";
 
@@ -68,7 +67,6 @@ public class MSUIMClientTest {
         client.addAttachment(getAttrFile());
         client.getMessage();
         client.doWork();
-
     }
 
     public Map<String, Object> getGENERAL() throws Exception {
@@ -140,9 +138,7 @@ public class MSUIMClientTest {
 
     public Map<String, Object> getAttrFile() throws Exception {
 
-        Path directory = createDirectories();
-        Path createdFile = createFile(directory);
-        File file = createdFile.toFile();
+        File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
 
         Map<String, Object> AttrFile = new HashMap<>();
         AttrFile.put("File_ID", "4673");
@@ -158,29 +154,12 @@ public class MSUIMClientTest {
         return AttrFile;
     }
 
-    private Path createFile(Path directory) {
-        Path newFile = Paths.get(directory.toString(), FILE_NAME);
-        try {
-            if (Files.exists(newFile)) {
-                Files.delete(newFile);
-            }
-            Files.createFile(newFile);
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        return newFile;
+    @org.junit.Test
+    public void getTestFile() throws IOException {
+        File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
+        byte[] b = Files.readAllBytes(file.toPath());
+        assertNotSame(0, b.length);
     }
 
-    private Path createDirectories() {
-        Path directory = Paths.get(PATH_DIRECTORY);
-        if (!Files.exists(directory)) {
-            try {
-                Files.createDirectories(directory);
-            } catch (IOException e) {
-                System.err.println(e);
-            }
-        }
-        return directory;
-    }
 
 }
