@@ -43,7 +43,7 @@ public class MSUIMClient {
 
     private REDataExchangeAttrECD message = new REDataExchangeAttrECD();
 
-    final Logger logger = LoggerFactory.getLogger(MSUIMClient.class.getSimpleName());
+    private static final Logger logger = LoggerFactory.getLogger(MSUIMClient.class.getSimpleName());
 
     public MSUIMClient(String serviceUrl, String login, String password) {
         this.serviceUrl = serviceUrl;
@@ -55,8 +55,7 @@ public class MSUIMClient {
         try {
             context = new ClassPathXmlApplicationContext("spring/terralink/spring-config.xml");
         } catch (Exception e) {
-            logger.error("Failed to get ClassPathXmlApplicationContext. Error: ", e);
-            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + e.toString());
+            return failed("Failed to get ClassPathXmlApplicationContext. Exception: "+ e.toString());
         }
         return isAllowedWebService();
     }
@@ -66,9 +65,7 @@ public class MSUIMClient {
             REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
             reAttrDataExchangeOut.reAttrDataExchangeOut(message);
         } catch (MalformedURLException e) {
-            String errMsg = "Error in doWork method. Exception: " + e.toString();
-            logger.error(errMsg);
-            return failed(errMsg);
+            return failed("Error in doWork method. Exception: " + e.toString());
         }
         return succeed();
     }
@@ -116,9 +113,7 @@ public class MSUIMClient {
             }
 
         } catch (IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ParseException e) {
-            String errMsg = "Error in buildMessage method. Exception: " + e.toString();
-            logger.error(errMsg);
-            return failed(errMsg);
+            return failed("Error in addSection method. Exception: " + e.toString());
         }
         return succeed();
     }
@@ -150,9 +145,7 @@ public class MSUIMClient {
 
                 message.addAttrFile(AttrFile);
             } catch (Exception e) {
-                String errMsg = "Error in addAttachment method. Exception: " + e.toString();
-                logger.error(errMsg);
-                return failed(errMsg);
+                return failed("Error in addAttachment method. Exception: " + e.toString());
             }
         } else {
             logger.warn("Got empty attachment args.");
@@ -177,12 +170,10 @@ public class MSUIMClient {
 
             int responseCode = connection.getResponseCode();
             if (responseCode != 200) {
-                logger.error("Web Service is not allowed " + connection.getResponseMessage());
-                return failed("Failed to get ClassPathXmlApplicationContext. Error: " + responseCode);
+                return failed("Server returned error: " + responseCode + "Message: "+ connection.getResponseMessage());
             }
         } catch (Exception e) {
-            logger.error("Web Service is not allowed " + e.getMessage());
-            return failed("Failed to get ClassPathXmlApplicationContext. Error: " + e.getMessage());
+            return failed("Failed to connect to URL: "+this.serviceUrl+" Exception: " + e.toString());
         }
         return succeed();
     }
@@ -236,6 +227,7 @@ public class MSUIMClient {
     }
 
     private static Map<String, Object> failed(String errMsg) {
+        logger.error(errMsg);
         Map<String, Object> result = new HashMap<>();
         result.put("ok", false);
         result.put("errMsg", errMsg);
