@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _REAttrDataExchangeMessage_QNAME = new QName("http://inform.gazprom.ru/C/SUIM/REDataExchange", "REAttrDataExchangeMessage");
+    private final static QName _Content_QNAME = new QName("http://inform.gazprom.ru/C/SUIM/REDataExchange", "Content");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.ru.terralink.model
@@ -168,6 +169,11 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", name = "REAttrDataExchangeMessage")
     public JAXBElement<REDataExchangeAttrECD> createREAttrDataExchangeMessage(REDataExchangeAttrECD value) {
         return new JAXBElement<REDataExchangeAttrECD>(_REAttrDataExchangeMessage_QNAME, REDataExchangeAttrECD.class, null, value);
+    }
+
+    @XmlElementDecl(namespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", name = "Content")
+    public JAXBElement<byte[]> createContent(byte[] value) {
+        return new JAXBElement<byte[]>(_Content_QNAME, byte[].class, null, ((byte[]) value));
     }
 
 }

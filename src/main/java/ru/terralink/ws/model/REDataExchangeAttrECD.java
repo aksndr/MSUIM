@@ -2,6 +2,7 @@
 package ru.terralink.ws.model;
 
 import org.joda.time.LocalDate;
+import ru.terralink.common.SoapFile;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import java.util.List;
         "CCC",
         "BONIA",
         "AttrFile"
+        //,
+        //"Content"
 })
 @XmlRootElement(name = "REAttrDataExchangeMessage")
 public class REDataExchangeAttrECD {
@@ -58,7 +61,8 @@ public class REDataExchangeAttrECD {
     protected REDataExchangeAttrECD.BONIA BONIA;
     @XmlElement(name = "AttrFile")
     protected List<REDataExchangeAttrFile> AttrFile;
-
+//    @XmlElement(name = "Content")
+//    protected byte[] Content;
     /**
      * Gets the value of the Header property.
      * 
@@ -122,6 +126,11 @@ public class REDataExchangeAttrECD {
 
     public void addAttrFile(REDataExchangeAttrFile attrFile) {
         this.getAttrFile().add(attrFile);
+    }
+
+    public void setAttrFile(REDataExchangeAttrFile attrFile) {
+        this.AttrFile = new ArrayList<>(1);
+        AttrFile.add(attrFile);
     }
 
     /**
@@ -417,9 +426,6 @@ public class REDataExchangeAttrECD {
         this.BONIA = value;
     }
 
-    public void setAttrFile(List<REDataExchangeAttrFile> attrFile) {
-        AttrFile = attrFile;
-    }
 
     /**
      * Gets the value of the AttrFile property.
@@ -2631,297 +2637,60 @@ public class REDataExchangeAttrECD {
             return DOCDATE;
         }
 
-        /**
-         * Sets the value of the DOCDATE property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link LocalDate }
-         *     
-         */
         public void setDOCDATE(LocalDate value) {
             this.DOCDATE = value;
         }
 
-        /**
-         * Gets the value of the DOCNAME property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
         public String getDOCNAME() {
             return DOCNAME;
         }
 
-        /**
-         * Sets the value of the DOCNAME property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
         public void setDOCNAME(String value) {
             this.DOCNAME = value;
         }
 
-        /**
-         * Gets the value of the NODOCNUM property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
         public Boolean isNODOCNUM() {
             return NODOCNUM;
         }
 
-        /**
-         * Sets the value of the NODOCNUM property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
         public void setNODOCNUM(Boolean value) {
             this.NODOCNUM = value;
         }
 
-        /**
-         * Gets the value of the NODOCDATE property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
         public Boolean isNODOCDATE() {
             return NODOCDATE;
         }
 
-        /**
-         * Sets the value of the NODOCDATE property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
         public void setNODOCDATE(Boolean value) {
             this.NODOCDATE = value;
         }
 
-        /**
-         * Gets the value of the REMARKS property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
         public String getREMARKS() {
             return REMARKS;
         }
 
-        /**
-         * Sets the value of the REMARKS property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
         public void setREMARKS(String value) {
             this.REMARKS = value;
         }
 
-        /**
-         * Gets the value of the RERF property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
         public String getRERF() {
             return RERF;
         }
 
-        /**
-         * Sets the value of the RERF property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
         public void setRERF(String value) {
             this.RERF = value;
         }
 
-        /**
-         * Gets the value of the AUTORDOC property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
         public String getAUTORDOC() {
             return AUTORDOC;
         }
 
-        /**
-         * Sets the value of the AUTORDOC property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
         public void setAUTORDOC(String value) {
             this.AUTORDOC = value;
         }
 
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="LAWSUBJECT">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="4"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XLAWSUBJECT">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XOLTYPE">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="24"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="OLTYPE" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="REGNUM">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="24"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="REGDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="CERTSER">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="5"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="CERTNUM">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="20"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="CERTDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="CHILDORG">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="4"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XCHILDORG">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XOBJOFLAW">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="KADASTRNUM" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="100"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="XLAWTYPE" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="100"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="LAWTYPE" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="2"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="INVENTORNUM" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="BP1" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="10"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="RECNREGOROLD" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="400"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "lawsubject",
@@ -4421,5 +4190,13 @@ public class REDataExchangeAttrECD {
         }
 
     }
+
+//    public byte[] getContent() {
+//        return this.Content;
+//    }
+//
+//    public void setContent(byte[] content) {
+//        this.Content = content;
+//    }
 
 }

@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.activation.MimetypesFileTypeMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -93,6 +94,11 @@ public class Utils {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getMimeType(String fileName) {
+        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
+        return mimeTypesMap.getContentType(fileName);
     }
 
 }

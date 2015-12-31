@@ -48,7 +48,7 @@ public class MSUIMClientTest {
         result = client.addSection("Header", getHeader());
         assertTrue((Boolean) result.get("ok"));
 
-        result = client.addAttachment(getAttrFile());
+        result = client.addAttachment(5,getAttrFile());
         assertTrue((Boolean) result.get("ok"));
 
         result = client.doWork();
@@ -67,7 +67,7 @@ public class MSUIMClientTest {
         client.addSection("ANY", getANY());
         client.addSection("GENERAL", getGENERAL());
         client.addSection("Header", getHeader());
-        client.addAttachment(getAttrFile());
+        client.addAttachment(5, getAttrFile());
         client.getMessage();
         client.doWork();
     }
@@ -115,8 +115,8 @@ public class MSUIMClientTest {
         ANY.put("CHILDORG", "text");
         ANY.put("XCHILDORG", "text");
         ANY.put("PERIODBEGIN", "20150302");
-        ANY.put("CONSTRUCTOBJECT", "text");
-        ANY.put("CONSTRUCTNAME", "text");
+//        ANY.put("CONSTRUCTOBJECT", "text");
+//        ANY.put("CONSTRUCTNAME", "text");
         ANY.put("PERIOD", "20150302");
         ANY.put("LINKDOCNUM", "text");
         ANY.put("LINKDOCDATE", "20150302");
@@ -152,16 +152,33 @@ public class MSUIMClientTest {
         AttrFile.put("DATUM", "19470202");
         AttrFile.put("Delete", false);
 
-        AttrFile.put("CONTENT", Files.readAllBytes(file.toPath()));
+        AttrFile.put("Content", Files.readAllBytes(file.toPath()));
 
         return AttrFile;
     }
+
+    public byte[] getFileContent() throws Exception {
+        File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
+        byte[] b =  Files.readAllBytes(file.toPath());
+        return b;
+    }
+
 
     @org.junit.Test
     public void getTestFile() throws IOException {
         File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
         byte[] b = Files.readAllBytes(file.toPath());
+        System.out.print(b.length);
         assertNotSame(0, b.length);
+    }
+
+    @org.junit.Test
+    public void getMimeTypeTest() throws Exception{
+        File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
+        String fileName = file.getName();
+        String mimeType = Utils.getMimeType(fileName);
+        assertNotNull(mimeType);
+
     }
 
 

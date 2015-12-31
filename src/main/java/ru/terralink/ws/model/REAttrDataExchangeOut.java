@@ -1,10 +1,7 @@
 
 package ru.terralink.ws.model;
 
-import javax.jws.Oneway;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
+import javax.jws.*;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -16,9 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 @WebService(name = "REAttrDataExchangeOut", targetNamespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-@XmlSeeAlso({
-        ObjectFactory.class
-})
+@XmlSeeAlso({ObjectFactory.class})
 public interface REAttrDataExchangeOut {
 
 
@@ -27,8 +22,10 @@ public interface REAttrDataExchangeOut {
      */
     @WebMethod(operationName = "REAttrDataExchangeOut", action = "http://sap.com/xi/WebService/soap1.1")
     @Oneway
-    public void reAttrDataExchangeOut(
-            @WebParam(name = "REAttrDataExchangeMessage", targetNamespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", partName = "REAttrDataExchangeMessage")
+    void reAttrDataExchangeOut(
+            @WebParam(name = "REAttrDataExchangeMessage",
+                      targetNamespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange",
+                      partName = "REAttrDataExchangeMessage")
             REDataExchangeAttrECD reAttrDataExchangeMessage);
 
 }

@@ -1,6 +1,7 @@
 
 package ru.terralink.ws.model;
 
+import javax.jws.HandlerChain;
 import javax.xml.namespace.QName;
 import javax.xml.ws.*;
 import java.net.MalformedURLException;
@@ -13,8 +14,7 @@ import java.net.URL;
  * Generated source version: 2.2
  */
 @WebServiceClient(name = "REAttrDataExchangeOutService", targetNamespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", wsdlLocation = "file:/D:/rnd/workspace/java/MSUIM/REAttrDataExchangeOutService.wsdl")
-public class REAttrDataExchangeOutService
-        extends Service {
+public class REAttrDataExchangeOutService extends Service {
 
     private final static URL REATTRDATAEXCHANGEOUTSERVICE_WSDL_LOCATION;
     private final static WebServiceException REATTRDATAEXCHANGEOUTSERVICE_EXCEPTION;

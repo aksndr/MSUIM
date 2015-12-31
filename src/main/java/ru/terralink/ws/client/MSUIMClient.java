@@ -9,10 +9,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import ru.terralink.common.Utils;
+import ru.terralink.common.mh.SoapMessageHandler;
 import ru.terralink.ws.model.REAttrDataExchangeOut;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
 import ru.terralink.ws.model.REDataExchangeAttrFile;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.xml.ws.handler.Handler;
+import javax.xml.ws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -23,7 +27,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //Created by Arzamastsev on 14.12.2015.
@@ -38,8 +44,11 @@ public class MSUIMClient {
 
     private ApplicationContext context;
 
+    private List<REDataExchangeAttrFile> attrFiles = new ArrayList<>();
+    private List<byte[]> chunks = new ArrayList<>();
+    private String mimeType = "";
+
     private Map<String, Object> result = new HashMap<>();
-    private Map<String, Object> sections = new HashMap<>();
 
     private REDataExchangeAttrECD message = new REDataExchangeAttrECD();
 
@@ -60,18 +69,8 @@ public class MSUIMClient {
         return isAllowedWebService();
     }
 
-    public Map<String, Object> doWork() {
-        try {
-            REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
-            reAttrDataExchangeOut.reAttrDataExchangeOut(message);
-        } catch (MalformedURLException e) {
-            return failed("Error in doWork method. Exception: " + e.toString());
-        }
-        return succeed();
-    }
-
     public Map<String, Object> addSection(String sectionName, Map<String, Object> attributes) {
-        if (isValidateAddSectionParams(sectionName, attributes)) {
+        if (addSectionParamsIsInvalid(sectionName, attributes)) {
             return result;
         }
 
@@ -100,6 +99,8 @@ public class MSUIMClient {
 
                 if (attributes.containsKey(sectionFieldName)) {
                     Object fieldValue = attributes.get(sectionFieldName);
+                    if (fieldValue == null) continue;
+
                     String stringValue = String.valueOf(fieldValue);
                     if (sectionFieldType.equals("org.joda.time.LocalDate")) {
                         sectionField.set(section, Utils.getLocalDate(stringValue));
@@ -118,10 +119,19 @@ public class MSUIMClient {
         return succeed();
     }
 
-    public Map<String, Object> addAttachment(Map<String, Object> attributes) {
+    public Map<String, Object> addAttachment(int partSize, Map<String, Object> attributes) {
         logger.info("Started addAttachment");
+
         if (attributes != null) {
             try {
+                if (!attributes.containsKey("Content"))
+                    return failed("System does not received attachment content data");
+
+                byte[] content = (byte[])attributes.get("Content");
+                if (content.length<=0)
+                    return failed("System does not received attachment content data");
+                logger.info("Attachment size: " + content.length);
+
                 String File_ID = attributes.containsKey("File_ID") ? String.valueOf(attributes.get("File_ID")) : "";
                 String FILE_NAME = attributes.containsKey("FILE_NAME") ? String.valueOf(attributes.get("FILE_NAME")) : "";
                 Integer NOMER = attributes.containsKey("NOMER") ? (Integer) attributes.get("NOMER") : 0;
@@ -130,20 +140,30 @@ public class MSUIMClient {
                 LocalDate DATUM = attributes.containsKey("DATUM") ? Utils.getLocalDate(String.valueOf(attributes.get("DATUM"))) : null;
                 Boolean Delete = attributes.containsKey("Delete") ? (Boolean) attributes.get("Delete") : false;
 
-                REDataExchangeAttrFile AttrFile = new REDataExchangeAttrFile();
-                AttrFile.setFileID(File_ID);
-                AttrFile.setFILENAME(FILE_NAME);
-                AttrFile.setNOMER(NOMER);
-                AttrFile.setUSERS(USERS);
-                AttrFile.setUSERSTXT(USERSTXT);
-                AttrFile.setDATUM(DATUM);
-                AttrFile.setDelete(Delete);
-                AttrFile.setCurrentPart(1);
-                AttrFile.setCurrentHash("");
-                AttrFile.setAllParts(1);
-                AttrFile.setAllHash("");
+                String allHash = Utils.getSha1Hash(content);
+                chunks = Utils.splitContent(content,partSize);
+                mimeType = Utils.getMimeType(FILE_NAME);
+                int currentPart = 1;
+                int totalParts = chunks.size();
+                for (byte[] chunk : chunks) {
+                    String currentHash = Utils.getSha1Hash(chunk);
+                    REDataExchangeAttrFile attrFile = new REDataExchangeAttrFile();
+                    attrFile.setFileID(File_ID);
+                    attrFile.setFILENAME(FILE_NAME);
+                    attrFile.setNOMER(NOMER);
+                    attrFile.setUSERS(USERS);
+                    attrFile.setUSERSTXT(USERSTXT);
+                    attrFile.setDATUM(DATUM);
+                    attrFile.setDelete(Delete);
+                    attrFile.setCurrentPart(currentPart);
+                    attrFile.setCurrentHash(currentHash);
+                    attrFile.setAllParts(totalParts);
+                    attrFile.setAllHash(allHash);
 
-                message.addAttrFile(AttrFile);
+                    attrFiles.add(attrFile);
+                    currentPart++;
+                }
+
             } catch (Exception e) {
                 return failed("Error in addAttachment method. Exception: " + e.toString());
             }
@@ -154,26 +174,15 @@ public class MSUIMClient {
         return succeed();
     }
 
-    public REDataExchangeAttrECD getMessage() {
-        return this.message;
-    }
-
-    public Map<String, Object> getSections() {
-        return sections;
-    }
-
-    private Map<String, Object> isAllowedWebService() {
+    public Map<String, Object> doWork() {
         try {
-            HttpURLConnection connection = (HttpURLConnection)  new URL( this.serviceUrl).openConnection();
-            connection.setRequestMethod("GET");
-            connection.getInputStream();
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode != 200) {
-                return failed("Server returned error: " + responseCode + "Message: "+ connection.getResponseMessage());
+            REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
+            for (REDataExchangeAttrFile attrFile : attrFiles){
+                message.setAttrFile(attrFile);
+                reAttrDataExchangeOut.reAttrDataExchangeOut(message);
             }
-        } catch (Exception e) {
-            return failed("Failed to connect to URL: "+this.serviceUrl+" Exception: " + e.toString());
+        } catch (MalformedURLException e) {
+            return failed("Error in doWork method. Exception: " + e.toString());
         }
         return succeed();
     }
@@ -197,21 +206,51 @@ public class MSUIMClient {
 
         requestContext.put(BindingProvider.USERNAME_PROPERTY, login);
         requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
+        requestContext.put("chunks", chunks.size());
 
+        SOAPBinding binding = (SOAPBinding) bp.getBinding();
+        binding.setMTOMEnabled(true);
+        List<Handler> h = binding.getHandlerChain();
+        SoapMessageHandler mh = new SoapMessageHandler();
+        mh.setChunks(chunks);
+        mh.setMimeType(mimeType);
+        h.add(mh);
+        binding.setHandlerChain(h);
         return reAttrDataExchangeOut;
     }
 
-    private boolean isValidateAddSectionParams(String sectionName, Map<String, Object> attributes) {
-        if (!StringUtils.isEmpty(sectionName)) {
-            result = failed("Section name were undefined");
-            return false;
-        }
-        if (!CollectionUtils.isEmpty(attributes)) {
-            result = failed("Attributes is undefined");
-            return false;
-        }
-        return true;
+    public REDataExchangeAttrECD getMessage() {
+        return this.message;
     }
+
+    private Map<String, Object> isAllowedWebService() {
+        try {
+            HttpURLConnection connection = (HttpURLConnection)  new URL( this.serviceUrl).openConnection();
+            connection.setRequestMethod("GET");
+            connection.getInputStream();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                return failed("Server returned error: " + responseCode + "Message: "+ connection.getResponseMessage());
+            }
+        } catch (Exception e) {
+            return failed("Failed to connect to URL: "+this.serviceUrl+" Exception: " + e.toString());
+        }
+        return succeed();
+    }
+
+    private boolean addSectionParamsIsInvalid(String sectionName, Map<String, Object> attributes) {
+        if (StringUtils.isEmpty(sectionName)) {
+            result = failed("Section name were undefined");
+            return true;
+        }
+        if (CollectionUtils.isEmpty(attributes)) {
+            result = failed("Attributes is undefined");
+            return true;
+        }
+        return false;
+    }
+
 
     private static Map<String, Object> succeed() {
         Map<String, Object> result = new HashMap<>();
