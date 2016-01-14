@@ -3,9 +3,12 @@ package ru.terralink.ws.test;
 import org.springframework.core.io.ClassPathResource;
 import ru.terralink.common.Utils;
 import ru.terralink.ws.client.MSUIMClient;
+import ru.terralink.ws.model.REAttrDataExchangeOut;
+import ru.terralink.ws.model.REAttrDataExchangeOutService;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -56,7 +59,6 @@ public class MSUIMClientTest {
 
         REDataExchangeAttrECD message = client.getMessage();
         Utils.marshalObject("./marshalled.xml", message);
-
     }
 
     @org.junit.Test
@@ -181,6 +183,13 @@ public class MSUIMClientTest {
         String fileName = file.getName();
         String mimeType = Utils.getMimeType(fileName);
         assertNotNull(mimeType);
+
+    }
+
+    @org.junit.Test
+    public void getServerTest() throws Exception{
+        REAttrDataExchangeOut service = new REAttrDataExchangeOutService().getHTTPPort();
+        assertNotNull("");
 
     }
 

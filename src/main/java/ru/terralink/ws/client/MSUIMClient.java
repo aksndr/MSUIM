@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import ru.terralink.common.Utils;
 import ru.terralink.common.mh.SoapMessageHandler;
 import ru.terralink.ws.model.REAttrDataExchangeOut;
+import ru.terralink.ws.model.REAttrDataExchangeOutService;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
 import ru.terralink.ws.model.REDataExchangeAttrFile;
 
@@ -201,11 +202,12 @@ public class MSUIMClient {
     }
 
     private REAttrDataExchangeOut getService(String url, String login, String pass) throws MalformedURLException {
-        URL wsdlUrl = new URL(url);
+        /*URL wsdlUrl = new URL(url);
         QName qName = new QName(NAME_SPACE_URL, WS_NAME);
         Service service = Service.create(wsdlUrl, qName);
-        REAttrDataExchangeOut reAttrDataExchangeOut = service.getPort(REAttrDataExchangeOut.class);
+        REAttrDataExchangeOut reAttrDataExchangeOut = service.getPort(REAttrDataExchangeOut.class);*/
 
+        REAttrDataExchangeOut reAttrDataExchangeOut = new REAttrDataExchangeOutService().getHTTPPort();
         BindingProvider bp = (BindingProvider) reAttrDataExchangeOut;
 
         Map<String, Object> requestContext = bp.getRequestContext();

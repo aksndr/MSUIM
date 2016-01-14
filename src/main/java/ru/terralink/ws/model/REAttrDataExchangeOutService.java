@@ -24,8 +24,8 @@ public class REAttrDataExchangeOutService extends Service {
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/D:/rnd/workspace/java/MSUIM/REAttrDataExchangeOutService.wsdl");
-        } catch (MalformedURLException ex) {
+            url = new URL("file:REAttrDataExchangeOutService.wsdl"); ///D:/rnd/workspace/java/MSUIM/
+        } catch (Exception ex) {
             e = new WebServiceException(ex);
         }
         REATTRDATAEXCHANGEOUTSERVICE_WSDL_LOCATION = url;
