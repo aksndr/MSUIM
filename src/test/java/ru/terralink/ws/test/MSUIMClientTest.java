@@ -33,6 +33,9 @@ public class MSUIMClientTest {
         Map<String, Object> result = client.init();
         assertTrue((Boolean) result.get("ok"));
 
+        result = client.addAttachment(5,getAttrFile());
+        assertTrue((Boolean) result.get("ok"));
+
         result = client.addSection("OBJECT_REFS", getOBJECT_REFS());
         assertTrue((Boolean) result.get("ok"));
 
@@ -46,9 +49,6 @@ public class MSUIMClientTest {
         assertTrue((Boolean) result.get("ok"));
 
         result = client.addSection("Header", getHeader());
-        assertTrue((Boolean) result.get("ok"));
-
-        result = client.addAttachment(5,getAttrFile());
         assertTrue((Boolean) result.get("ok"));
 
         result = client.doWork();
@@ -139,6 +139,7 @@ public class MSUIMClientTest {
         return Header;
     }
 
+    //TODO: You need add simple pdf file to the resources and change arg name for ClassPathResource
     public Map<String, Object> getAttrFile() throws Exception {
 
         File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
@@ -157,13 +158,14 @@ public class MSUIMClientTest {
         return AttrFile;
     }
 
+    //TODO: You need add simple pdf file to the resources and change arg name for ClassPathResource
     public byte[] getFileContent() throws Exception {
         File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
         byte[] b =  Files.readAllBytes(file.toPath());
         return b;
     }
 
-
+    //TODO: You need add simple pdf file to the resources and change arg name for ClassPathResource
     @org.junit.Test
     public void getTestFile() throws IOException {
         File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();
@@ -172,6 +174,7 @@ public class MSUIMClientTest {
         assertNotSame(0, b.length);
     }
 
+    //TODO: You need add simple pdf file to the resources and change arg name for ClassPathResource
     @org.junit.Test
     public void getMimeTypeTest() throws Exception{
         File file = new ClassPathResource("ECMLink 10.5 SP1 - User Guide.pdf").getFile();

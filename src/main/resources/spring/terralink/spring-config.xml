@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
-       <bean id="Header"           class="ru.terralink.ws.model.REDataExchangeHeader"/>
-       <bean id="OBJECT_REFS"      class="ru.terralink.ws.model.REDataExchangeAttrECD.OBJECT_REFS"/>
-       <bean id="PARTNER_REFS"     class="ru.terralink.ws.model.REDataExchangeAttrECD.PARTNER_REFS"/>
-       <bean id="GENERAL"          class="ru.terralink.ws.model.REDataExchangeAttrECD.GENERAL"/>
-       <bean id="CONTRACT"         class="ru.terralink.ws.model.REDataExchangeAttrECD.CONTRACT"/>
-       <bean id="FINDOC"           class="ru.terralink.ws.model.REDataExchangeAttrECD.FINDOC"/>
-       <bean id="LETTERS"          class="ru.terralink.ws.model.REDataExchangeAttrECD.LETTERS"/>
-       <bean id="ANY"              class="ru.terralink.ws.model.REDataExchangeAttrECD.ANY"/>
-       <bean id="ACTS"             class="ru.terralink.ws.model.REDataExchangeAttrECD.ACTS"/>
-       <bean id="KPD"              class="ru.terralink.ws.model.REDataExchangeAttrECD.KPD"/>
-       <bean id="DFV"              class="ru.terralink.ws.model.REDataExchangeAttrECD.DFV"/>
-       <bean id="NNA"              class="ru.terralink.ws.model.REDataExchangeAttrECD.NNA"/>
-       <bean id="CCC"              class="ru.terralink.ws.model.REDataExchangeAttrECD.CCC"/>
-       <bean id="BONIA"            class="ru.terralink.ws.model.REDataExchangeAttrECD.BONIA"/>
-       <bean id="AttrFile"         class="ru.terralink.ws.model.REDataExchangeAttrFile"/>
+       <bean id="Header" class="ru.terralink.ws.model.REDataExchangeHeader"/>
+       <bean id="OBJECT_REFS" class="ru.terralink.ws.model.REDataExchangeAttrECD.OBJECT_REFS"/>
+       <bean id="PARTNER_REFS" class="ru.terralink.ws.model.REDataExchangeAttrECD.PARTNER_REFS"/>
+       <bean id="GENERAL" class="ru.terralink.ws.model.REDataExchangeAttrECD.GENERAL"/>
+       <bean id="CONTRACT" class="ru.terralink.ws.model.REDataExchangeAttrECD.CONTRACT"/>
+       <bean id="FINDOC" class="ru.terralink.ws.model.REDataExchangeAttrECD.FINDOC"/>
+       <bean id="LETTERS" class="ru.terralink.ws.model.REDataExchangeAttrECD.LETTERS"/>
+       <bean id="ANY" class="ru.terralink.ws.model.REDataExchangeAttrECD.ANY"/>
+       <bean id="ACTS" class="ru.terralink.ws.model.REDataExchangeAttrECD.ACTS"/>
+       <bean id="KPD" class="ru.terralink.ws.model.REDataExchangeAttrECD.KPD"/>
+       <bean id="DFV" class="ru.terralink.ws.model.REDataExchangeAttrECD.DFV"/>
+       <bean id="NNA" class="ru.terralink.ws.model.REDataExchangeAttrECD.NNA"/>
+       <bean id="CCC" class="ru.terralink.ws.model.REDataExchangeAttrECD.CCC"/>
+       <bean id="BONIA" class="ru.terralink.ws.model.REDataExchangeAttrECD.BONIA"/>
+       <bean id="AttrFile" class="ru.terralink.ws.model.REDataExchangeAttrFile"/>
 
 </beans>

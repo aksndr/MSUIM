@@ -14,7 +14,6 @@ import ru.terralink.ws.model.REAttrDataExchangeOut;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
 import ru.terralink.ws.model.REDataExchangeAttrFile;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
@@ -54,10 +53,24 @@ public class MSUIMClient {
 
     private static final Logger logger = LoggerFactory.getLogger(MSUIMClient.class.getSimpleName());
 
+
     public MSUIMClient(String serviceUrl, String login, String password) {
         this.serviceUrl = serviceUrl;
         this.login = login;
         this.password = password;
+
+        authenticator(login, password);
+
+    }
+
+    private void authenticator(final String login, final String password) {
+        java.net.Authenticator.setDefault(new java.net.Authenticator() {
+
+            @Override
+            protected java.net.PasswordAuthentication getPasswordAuthentication() {
+                return new java.net.PasswordAuthentication(login, password.toCharArray());
+            }
+        });
     }
 
     public Map<String, Object> init() {
