@@ -3,7 +3,6 @@ package ru.terralink.ws.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ru.terralink.common.Utils;
 import ru.terralink.ws.model.REDataExchangeAttrFile;
 
@@ -41,7 +40,7 @@ public class AddAttachment {
 
                 byte[] content = (byte[]) attributes.get("Content");
 
-                if (content.length <= 0){
+                if (content.length <= 0) {
                     return replyHelper.failed("System does not received attachment content data");
                 }
                 logger.info("Attachment size: " + content.length);
@@ -49,8 +48,8 @@ public class AddAttachment {
                 String fileName = extractStringAttribute(attributes, "FILE_NAME");
                 String fileId = extractStringAttribute(attributes, "File_ID");
                 BigInteger nomer = extractBigIntegerAttribute(attributes, "NOMER");
-                String users = extractStringAttribute(attributes,"USERS");
-                String userstxt = extractStringAttribute(attributes,"USERSTXT");
+                String users = extractStringAttribute(attributes, "USERS");
+                String userstxt = extractStringAttribute(attributes, "USERSTXT");
                 XMLGregorianCalendar DATUM = extractXmlGregorianCalendarAttribute(attributes, "DATUM");
                 Boolean Delete = extractBooleanAttribute(attributes, "Delete");
 
@@ -95,7 +94,7 @@ public class AddAttachment {
         logger.info("chunks size: " + getChunks().size());
         setMimeType(Utils.getMimeType(fileName));
         logger.info("mimeType: " + getMimeType());
-        setContentId(fileId + fileName.substring(fileName.lastIndexOf(".")));
+        setContentId(fileId);
         logger.info("contentId: " + getContentId());
     }
 
@@ -149,7 +148,7 @@ public class AddAttachment {
     }
 
     public List<REDataExchangeAttrFile> getAttrFiles() {
-        if(attrFiles == null){
+        if (attrFiles == null) {
             this.attrFiles = new ArrayList<REDataExchangeAttrFile>();
         }
         return attrFiles;

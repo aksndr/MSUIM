@@ -26,10 +26,14 @@ import java.util.Map;
  */
 
 public class MSUIMClient2 {
-    @Autowired private ReplyHelper replyHelper;
-    @Autowired private AddAttachment addAttachment;
-    @Autowired private REDataExchangeAttrECD message;
-    @Autowired private SoapMessageHandler mh;
+    @Autowired
+    private ReplyHelper replyHelper;
+    @Autowired
+    private AddAttachment addAttachment;
+    @Autowired
+    private REDataExchangeAttrECD message;
+    @Autowired
+    private SoapMessageHandler mh;
     private String serviceUrl;
     private String login;
     private String password;
