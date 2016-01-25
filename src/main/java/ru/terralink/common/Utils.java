@@ -1,6 +1,12 @@
 package ru.terralink.common;//Created by Arzamastsev on 14.12.2015.
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -12,11 +18,22 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import com.sun.jmx.remote.internal.ArrayQueue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 public class Utils {
+
+    private static final Logger logger = LoggerFactory.getLogger(Utils.class.getSimpleName());
+
+    private static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
 
     public static Date getCalendar(String s) throws ParseException, DatatypeConfigurationException {
         final DateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -30,10 +47,28 @@ public class Utils {
     public static LocalDate getLocalDate(String s) throws ParseException {
         final DateFormat format = new SimpleDateFormat("yyyyMMdd");
         final Date date = format.parse(s);
-        Date newDate =  new Date(date.getTime() + 1 * 3600 * 1000);
+        Date newDate = new Date(date.getTime() + 1 * 3600 * 1000);
 
         DateTime dt = new DateTime(newDate);
         return new LocalDate(dt.getMillis());
+    }
+
+    public static XMLGregorianCalendar stringToXMLGregorianCalendar(String s)
+            throws ParseException, DatatypeConfigurationException {
+        XMLGregorianCalendar result = null;
+        Date date;
+        SimpleDateFormat simpleDateFormat;
+        GregorianCalendar gregorianCalendar;
+
+        simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        date = simpleDateFormat.parse(s);
+        gregorianCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        gregorianCalendar.setTime(date);
+        result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+        result.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+        result.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+
+        return result;
     }
 
     public static List<byte[]> splitContent(byte[] attachmentContent) {
@@ -96,9 +131,15 @@ public class Utils {
         }
     }
 
-    public static String getMimeType(String fileName) {
-        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
-        return mimeTypesMap.getContentType(fileName);
+    public static String getMimeType(String fileName) throws IOException {
+        logger.info("Start Utils GetMimeType for file " + fileName);
+        if(!new ClassPathResource("mime.types").exists()){
+            logger.info("MimeType file not found. Please make sure that this file has been to jar/resources.");
+        }
+        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap(
+                new ClassPathResource("mime.types").getInputStream());
+        String mimeType = mimeTypesMap.getContentType(fileName);
+        logger.info("Content Type : "+ mimeType);
+        return mimeType == null ? DEFAULT_CONTENT_TYPE : mimeType;
     }
-
 }

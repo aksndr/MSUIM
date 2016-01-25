@@ -1,14 +1,13 @@
 
 package ru.terralink.ws.model;
 
-import org.joda.time.LocalDate;
-
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigInteger;
 
 
 /**
@@ -96,46 +95,46 @@ import java.math.BigInteger;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "REDataExchangeAttrFile", propOrder = {
-        "File_ID",
-        "Current_Part",
-        "All_Parts",
-        "Current_Hash",
-        "All_Hash",
-        "NOMER",
-        "FILE_NAME",
-        "USERS",
-        "USERSTXT",
-        "DATUM",
-        "Delete"
+    "fileID",
+    "currentPart",
+    "allParts",
+    "currentHash",
+    "allHash",
+    "nomer",
+    "filename",
+    "users",
+    "userstxt",
+    "datum",
+    "delete"
 })
 public class REDataExchangeAttrFile {
 
     @XmlElement(name = "File_ID", required = true)
-    protected String File_ID;
+    protected String fileID;
     @XmlElement(name = "Current_Part", required = true)
-    protected Integer Current_Part;
+    protected BigInteger currentPart;
     @XmlElement(name = "All_Parts", required = true)
-    protected Integer All_Parts;
+    protected BigInteger allParts;
     @XmlElement(name = "Current_Hash", required = true)
-    protected String Current_Hash;
+    protected String currentHash;
     @XmlElement(name = "All_Hash", required = true)
-    protected String All_Hash;
+    protected String allHash;
     @XmlElement(name = "NOMER", required = true)
-    protected Integer NOMER;
+    protected BigInteger nomer;
     @XmlElement(name = "FILE_NAME", required = true)
-    protected String FILE_NAME;
+    protected String filename;
     @XmlElement(name = "USERS")
-    protected String USERS;
+    protected String users;
     @XmlElement(name = "USERSTXT")
-    protected String USERSTXT;
+    protected String userstxt;
     @XmlElement(name = "DATUM", required = true)
-    //@XmlSchemaType(name = "date")
-    protected LocalDate DATUM;
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar datum;
     @XmlElement(name = "Delete")
-    protected Boolean Delete;
+    protected Boolean delete;
 
     /**
-     * Gets the value of the File_ID property.
+     * Gets the value of the fileID property.
      * 
      * @return
      *     possible object is
@@ -143,11 +142,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getFileID() {
-        return File_ID;
+        return fileID;
     }
 
     /**
-     * Sets the value of the File_ID property.
+     * Sets the value of the fileID property.
      * 
      * @param value
      *     allowed object is
@@ -155,59 +154,59 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setFileID(String value) {
-        this.File_ID = value;
+        this.fileID = value;
     }
 
     /**
-     * Gets the value of the Current_Part property.
+     * Gets the value of the currentPart property.
      * 
      * @return
      *     possible object is
      *     {@link BigInteger }
      *     
      */
-    public Integer getCurrentPart() {
-        return Current_Part;
+    public BigInteger getCurrentPart() {
+        return currentPart;
     }
 
     /**
-     * Sets the value of the Current_Part property.
+     * Sets the value of the currentPart property.
      * 
      * @param value
      *     allowed object is
      *     {@link BigInteger }
      *     
      */
-    public void setCurrentPart(Integer value) {
-        this.Current_Part = value;
+    public void setCurrentPart(BigInteger value) {
+        this.currentPart = value;
     }
 
     /**
-     * Gets the value of the All_Parts property.
+     * Gets the value of the allParts property.
      * 
      * @return
      *     possible object is
      *     {@link BigInteger }
      *     
      */
-    public Integer getAllParts() {
-        return All_Parts;
+    public BigInteger getAllParts() {
+        return allParts;
     }
 
     /**
-     * Sets the value of the All_Parts property.
+     * Sets the value of the allParts property.
      * 
      * @param value
      *     allowed object is
      *     {@link BigInteger }
      *     
      */
-    public void setAllParts(Integer value) {
-        this.All_Parts = value;
+    public void setAllParts(BigInteger value) {
+        this.allParts = value;
     }
 
     /**
-     * Gets the value of the Current_Hash property.
+     * Gets the value of the currentHash property.
      * 
      * @return
      *     possible object is
@@ -215,11 +214,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getCurrentHash() {
-        return Current_Hash;
+        return currentHash;
     }
 
     /**
-     * Sets the value of the Current_Hash property.
+     * Sets the value of the currentHash property.
      * 
      * @param value
      *     allowed object is
@@ -227,11 +226,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setCurrentHash(String value) {
-        this.Current_Hash = value;
+        this.currentHash = value;
     }
 
     /**
-     * Gets the value of the All_Hash property.
+     * Gets the value of the allHash property.
      * 
      * @return
      *     possible object is
@@ -239,11 +238,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getAllHash() {
-        return All_Hash;
+        return allHash;
     }
 
     /**
-     * Sets the value of the All_Hash property.
+     * Sets the value of the allHash property.
      * 
      * @param value
      *     allowed object is
@@ -251,35 +250,35 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setAllHash(String value) {
-        this.All_Hash = value;
+        this.allHash = value;
     }
 
     /**
-     * Gets the value of the NOMER property.
+     * Gets the value of the nomer property.
      * 
      * @return
      *     possible object is
      *     {@link BigInteger }
      *     
      */
-    public Integer getNOMER() {
-        return NOMER;
+    public BigInteger getNOMER() {
+        return nomer;
     }
 
     /**
-     * Sets the value of the NOMER property.
+     * Sets the value of the nomer property.
      * 
      * @param value
      *     allowed object is
      *     {@link BigInteger }
      *     
      */
-    public void setNOMER(Integer value) {
-        this.NOMER = value;
+    public void setNOMER(BigInteger value) {
+        this.nomer = value;
     }
 
     /**
-     * Gets the value of the FILE_NAME property.
+     * Gets the value of the filename property.
      * 
      * @return
      *     possible object is
@@ -287,11 +286,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getFILENAME() {
-        return FILE_NAME;
+        return filename;
     }
 
     /**
-     * Sets the value of the FILE_NAME property.
+     * Sets the value of the filename property.
      * 
      * @param value
      *     allowed object is
@@ -299,11 +298,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setFILENAME(String value) {
-        this.FILE_NAME = value;
+        this.filename = value;
     }
 
     /**
-     * Gets the value of the USERS property.
+     * Gets the value of the users property.
      * 
      * @return
      *     possible object is
@@ -311,11 +310,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getUSERS() {
-        return USERS;
+        return users;
     }
 
     /**
-     * Sets the value of the USERS property.
+     * Sets the value of the users property.
      * 
      * @param value
      *     allowed object is
@@ -323,11 +322,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setUSERS(String value) {
-        this.USERS = value;
+        this.users = value;
     }
 
     /**
-     * Gets the value of the USERSTXT property.
+     * Gets the value of the userstxt property.
      * 
      * @return
      *     possible object is
@@ -335,11 +334,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public String getUSERSTXT() {
-        return USERSTXT;
+        return userstxt;
     }
 
     /**
-     * Sets the value of the USERSTXT property.
+     * Sets the value of the userstxt property.
      * 
      * @param value
      *     allowed object is
@@ -347,35 +346,35 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setUSERSTXT(String value) {
-        this.USERSTXT = value;
+        this.userstxt = value;
     }
 
     /**
-     * Gets the value of the DATUM property.
+     * Gets the value of the datum property.
      * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public LocalDate getDATUM() {
-        return DATUM;
+    public XMLGregorianCalendar getDATUM() {
+        return datum;
     }
 
     /**
-     * Sets the value of the DATUM property.
+     * Sets the value of the datum property.
      * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDATUM(LocalDate value) {
-        this.DATUM = value;
+    public void setDATUM(XMLGregorianCalendar value) {
+        this.datum = value;
     }
 
     /**
-     * Gets the value of the Delete property.
+     * Gets the value of the delete property.
      * 
      * @return
      *     possible object is
@@ -383,11 +382,11 @@ public class REDataExchangeAttrFile {
      *     
      */
     public Boolean isDelete() {
-        return Delete;
+        return delete;
     }
 
     /**
-     * Sets the value of the Delete property.
+     * Sets the value of the delete property.
      * 
      * @param value
      *     allowed object is
@@ -395,7 +394,7 @@ public class REDataExchangeAttrFile {
      *     
      */
     public void setDelete(Boolean value) {
-        this.Delete = value;
+        this.delete = value;
     }
 
 }

@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-       <bean id="Header" class="ru.terralink.ws.model.REDataExchangeHeader"/>
-       <bean id="OBJECT_REFS" class="ru.terralink.ws.model.REDataExchangeAttrECD.OBJECT_REFS"/>
-       <bean id="PARTNER_REFS" class="ru.terralink.ws.model.REDataExchangeAttrECD.PARTNER_REFS"/>
-       <bean id="GENERAL" class="ru.terralink.ws.model.REDataExchangeAttrECD.GENERAL"/>
-       <bean id="CONTRACT" class="ru.terralink.ws.model.REDataExchangeAttrECD.CONTRACT"/>
-       <bean id="FINDOC" class="ru.terralink.ws.model.REDataExchangeAttrECD.FINDOC"/>
-       <bean id="LETTERS" class="ru.terralink.ws.model.REDataExchangeAttrECD.LETTERS"/>
-       <bean id="ANY" class="ru.terralink.ws.model.REDataExchangeAttrECD.ANY"/>
-       <bean id="ACTS" class="ru.terralink.ws.model.REDataExchangeAttrECD.ACTS"/>
-       <bean id="KPD" class="ru.terralink.ws.model.REDataExchangeAttrECD.KPD"/>
-       <bean id="DFV" class="ru.terralink.ws.model.REDataExchangeAttrECD.DFV"/>
-       <bean id="NNA" class="ru.terralink.ws.model.REDataExchangeAttrECD.NNA"/>
-       <bean id="CCC" class="ru.terralink.ws.model.REDataExchangeAttrECD.CCC"/>
-       <bean id="BONIA" class="ru.terralink.ws.model.REDataExchangeAttrECD.BONIA"/>
+
+       <context:annotation-config/>
+       <context:component-scan base-package="ru.terralink"/>
+
+       <bean id = "replyHeader" class="ru.terralink.ws.client.ReplyHelper"/>
+       <bean id = "addAttachment" class="ru.terralink.ws.client.AddAttachment"/>
+       <bean id = "addSection" class="ru.terralink.ws.client.AddSection"/>
+       <bean id = "msuimClient2" class="ru.terralink.ws.client.MSUIMClient2"/>
+
+       <bean id="reDataExchangeAttrECD" class="ru.terralink.ws.model.REDataExchangeAttrECD"/>
+       <bean id="reDataExchangeAttrFile" class="ru.terralink.ws.model.REDataExchangeAttrFile"/>
+       <bean id="reDataExchangeHeader" class="ru.terralink.ws.model.REDataExchangeHeader"/>
+       <bean id="reAttrDataExchangeOutService" class="ru.terralink.ws.model.REAttrDataExchangeOutService"/>
+       <bean id="soapMessageHandler" class="ru.terralink.common.mh.SoapMessageHandler"/>
+
+
+       <bean id="header" class="ru.terralink.ws.model.REDataExchangeHeader"/>
+       <bean id="objectrefs" class="ru.terralink.ws.model.REDataExchangeAttrECD.OBJECTREFS"/>
+       <bean id="partnerrefs" class="ru.terralink.ws.model.REDataExchangeAttrECD.PARTNERREFS"/>
+       <bean id="general" class="ru.terralink.ws.model.REDataExchangeAttrECD.GENERAL"/>
+       <bean id="contract" class="ru.terralink.ws.model.REDataExchangeAttrECD.CONTRACT"/>
+       <bean id="findoc" class="ru.terralink.ws.model.REDataExchangeAttrECD.FINDOC"/>
+       <bean id="letters" class="ru.terralink.ws.model.REDataExchangeAttrECD.LETTERS"/>
+       <bean id="any" class="ru.terralink.ws.model.REDataExchangeAttrECD.ANY"/>
+       <bean id="acts" class="ru.terralink.ws.model.REDataExchangeAttrECD.ACTS"/>
+       <bean id="kpd" class="ru.terralink.ws.model.REDataExchangeAttrECD.KPD"/>
+       <bean id="dfv" class="ru.terralink.ws.model.REDataExchangeAttrECD.DFV"/>
+       <bean id="nna" class="ru.terralink.ws.model.REDataExchangeAttrECD.NNA"/>
+       <bean id="ccc" class="ru.terralink.ws.model.REDataExchangeAttrECD.CCC"/>
        <bean id="AttrFile" class="ru.terralink.ws.model.REDataExchangeAttrFile"/>
+
 
 </beans>

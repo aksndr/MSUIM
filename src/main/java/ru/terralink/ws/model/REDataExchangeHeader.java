@@ -78,33 +78,33 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "REDataExchangeHeader", propOrder = {
-        "LogicalSystem",
-        "ObjectType",
-        "ObjectNumber",
-        "ObjectNumber_ext",
-        "Activity",
-        "ObjectTypeDiff",
-        "Destination"
+    "logicalSystem",
+    "objectType",
+    "objectNumber",
+    "objectNumberExt",
+    "activity",
+    "objectTypeDiff",
+    "destination"
 })
 public class REDataExchangeHeader {
 
     @XmlElement(name = "LogicalSystem", required = true)
-    protected String LogicalSystem;
+    protected String logicalSystem;
     @XmlElement(name = "ObjectType", required = true)
-    protected String ObjectType;
+    protected String objectType;
     @XmlElement(name = "ObjectNumber", required = true)
-    protected String ObjectNumber;
+    protected String objectNumber;
     @XmlElement(name = "ObjectNumber_ext")
-    protected String ObjectNumber_ext;
+    protected String objectNumberExt;
     @XmlElement(name = "Activity", required = true)
-    protected String Activity;
+    protected String activity;
     @XmlElement(name = "ObjectTypeDiff", required = true)
-    protected String ObjectTypeDiff;
+    protected String objectTypeDiff;
     @XmlElement(name = "Destination", required = true)
-    protected String Destination;
+    protected String destination;
 
     /**
-     * Gets the value of the LogicalSystem property.
+     * Gets the value of the logicalSystem property.
      * 
      * @return
      *     possible object is
@@ -112,11 +112,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getLogicalSystem() {
-        return LogicalSystem;
+        return logicalSystem;
     }
 
     /**
-     * Sets the value of the LogicalSystem property.
+     * Sets the value of the logicalSystem property.
      * 
      * @param value
      *     allowed object is
@@ -124,11 +124,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setLogicalSystem(String value) {
-        this.LogicalSystem = value;
+        this.logicalSystem = value;
     }
 
     /**
-     * Gets the value of the ObjectType property.
+     * Gets the value of the objectType property.
      * 
      * @return
      *     possible object is
@@ -136,11 +136,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getObjectType() {
-        return ObjectType;
+        return objectType;
     }
 
     /**
-     * Sets the value of the ObjectType property.
+     * Sets the value of the objectType property.
      * 
      * @param value
      *     allowed object is
@@ -148,11 +148,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setObjectType(String value) {
-        this.ObjectType = value;
+        this.objectType = value;
     }
 
     /**
-     * Gets the value of the ObjectNumber property.
+     * Gets the value of the objectNumber property.
      * 
      * @return
      *     possible object is
@@ -160,11 +160,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getObjectNumber() {
-        return ObjectNumber;
+        return objectNumber;
     }
 
     /**
-     * Sets the value of the ObjectNumber property.
+     * Sets the value of the objectNumber property.
      * 
      * @param value
      *     allowed object is
@@ -172,11 +172,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setObjectNumber(String value) {
-        this.ObjectNumber = value;
+        this.objectNumber = value;
     }
 
     /**
-     * Gets the value of the ObjectNumber_ext property.
+     * Gets the value of the objectNumberExt property.
      * 
      * @return
      *     possible object is
@@ -184,11 +184,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getObjectNumberExt() {
-        return ObjectNumber_ext;
+        return objectNumberExt;
     }
 
     /**
-     * Sets the value of the ObjectNumber_ext property.
+     * Sets the value of the objectNumberExt property.
      * 
      * @param value
      *     allowed object is
@@ -196,11 +196,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setObjectNumberExt(String value) {
-        this.ObjectNumber_ext = value;
+        this.objectNumberExt = value;
     }
 
     /**
-     * Gets the value of the Activity property.
+     * Gets the value of the activity property.
      * 
      * @return
      *     possible object is
@@ -208,11 +208,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getActivity() {
-        return Activity;
+        return activity;
     }
 
     /**
-     * Sets the value of the Activity property.
+     * Sets the value of the activity property.
      * 
      * @param value
      *     allowed object is
@@ -220,11 +220,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setActivity(String value) {
-        this.Activity = value;
+        this.activity = value;
     }
 
     /**
-     * Gets the value of the ObjectTypeDiff property.
+     * Gets the value of the objectTypeDiff property.
      * 
      * @return
      *     possible object is
@@ -232,11 +232,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getObjectTypeDiff() {
-        return ObjectTypeDiff;
+        return objectTypeDiff;
     }
 
     /**
-     * Sets the value of the ObjectTypeDiff property.
+     * Sets the value of the objectTypeDiff property.
      * 
      * @param value
      *     allowed object is
@@ -244,11 +244,11 @@ public class REDataExchangeHeader {
      *     
      */
     public void setObjectTypeDiff(String value) {
-        this.ObjectTypeDiff = value;
+        this.objectTypeDiff = value;
     }
 
     /**
-     * Gets the value of the Destination property.
+     * Gets the value of the destination property.
      * 
      * @return
      *     possible object is
@@ -256,11 +256,11 @@ public class REDataExchangeHeader {
      *     
      */
     public String getDestination() {
-        return Destination;
+        return destination;
     }
 
     /**
-     * Sets the value of the Destination property.
+     * Sets the value of the destination property.
      * 
      * @param value
      *     allowed object is
@@ -268,7 +268,7 @@ public class REDataExchangeHeader {
      *     
      */
     public void setDestination(String value) {
-        this.Destination = value;
+        this.destination = value;
     }
 
 }

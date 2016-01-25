@@ -1,70 +1,836 @@
 
 package ru.terralink.ws.model;
 
-import org.joda.time.LocalDate;
-import ru.terralink.common.SoapFile;
-
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+
+/**
+ * <p>Java class for REDataExchangeAttrECD complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="REDataExchangeAttrECD">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="Header" type="{http://inform.gazprom.ru/C/SUIM/REDataExchange}REDataExchangeHeader"/>
+ *         &lt;element name="OBJECT_REFS" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="OBJECT_REF">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="70"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="ObjCommType" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="LINK" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCGUID" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="32"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="Delete" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="PARTNER_REFS" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="PARTNER_REF">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="20"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="LINK" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCGUID">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="32"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="Delete" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="GENERAL">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="DOCTYPE">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCGR_CODE">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="12"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCNUM">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="255"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="DOCNAME" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="NODOCNUM" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                   &lt;element name="NODOCDATE" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                   &lt;element name="REMARKS" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RERF">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="12"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="AUTORDOC">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="255"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="CONTRACT" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="BP1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XBP1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="BP2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XBP2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNBEG" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="RECNEND1ST" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="RECNREGDJR" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="RECNREGJR" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="30"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNREGDCH" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="RECNNRCH" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="40"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNREGST" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="80"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNREGDST" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="FINDOC" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="RECNNREXT">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="50"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECND" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="AJAHR" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNTYPE">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="80"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="SUMMA" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="18"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="TAXAMOUNT" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="18"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CALCCURR" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="5"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DESCRIPTION" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="LETTERS" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="CHILDORG1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="SENDERFIO">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CHILDORG2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECEIVERFIO" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DESCRIPTION" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="SUMMA" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="18"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CALCCURR" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="5"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="ANY" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="CUSTOMER">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CHILDORG">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="PERIODBEGIN" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="CONSTRUCTOBJECT" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CONSTRUCTNAME" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="PERIOD" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="LINKDOCNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="255"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="LINKDOCDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="SUMMA" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="18"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CALCCURR" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="5"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="ACTS" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="BP1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XBP1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="BP2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XBP2">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECVDOCNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="250"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECVDOCDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="KADASTRNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="KPD" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="LAWSUBJECT">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XLAWSUBJECT">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XOLTYPE">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="24"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="OLTYPE" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="1"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="REGNUM">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="24"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="REGDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="CERTSER">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="5"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CERTNUM">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="20"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="CERTDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="CHILDORG">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XOBJOFLAW">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="KADASTRNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="100"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XLAWTYPE" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="100"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="LAWTYPE" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="INVENTORNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="BP1" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="RECNREGOROLD" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="DFV" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="MANAGING_SUBJEC">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="10"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XMANAGING_SUBJEC" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="BUKRS" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="REGDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="REGNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="255"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DOCDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="DOCNAME" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="NODOCNUM" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                   &lt;element name="NODOCDATE" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                   &lt;element name="REMARKS" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="REGORGAN" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="255"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="DESCRIPTION" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="NNA" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="CHILDORG1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="4"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XCHILDORG1">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="OBJNAME" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="OBJPLACE" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="KADASTRNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="100"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="OGRN" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="250"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="EGRJLDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="EGRPDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="EGRPNUM" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="24"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="CCC" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="RATINGOBJECT">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="ESTIMATEDORG" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="12"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="XESTIMATEDORG" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                         &lt;maxLength value="400"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="AttrFile" type="{http://inform.gazprom.ru/C/SUIM/REDataExchange}REDataExchangeAttrFile" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "REDataExchangeAttrECD", propOrder = {
-        "Header",
-        "OBJECT_REFS",
-        "PARTNER_REFS",
-        "GENERAL",
-        "CONTRACT",
-        "FINDOC",
-        "LETTERS",
-        "ANY",
-        "ACTS",
-        "KPD",
-        "DFV",
-        "NNA",
-        "CCC",
-        "BONIA",
-        "AttrFile"
-        //,
-        //"Content"
+    "header",
+    "objectrefs",
+    "partnerrefs",
+    "general",
+    "contract",
+    "findoc",
+    "letters",
+    "any",
+    "acts",
+    "kpd",
+    "dfv",
+    "nna",
+    "ccc",
+    "attrFile"
 })
+
 @XmlRootElement(name = "REAttrDataExchangeMessage")
 public class REDataExchangeAttrECD {
 
     @XmlElement(name = "Header", required = true)
-    protected REDataExchangeHeader Header;
+    protected REDataExchangeHeader header;
     @XmlElement(name = "OBJECT_REFS")
-    protected List<REDataExchangeAttrECD.OBJECT_REFS> OBJECT_REFS;
+    protected List<REDataExchangeAttrECD.OBJECTREFS> objectrefs;
     @XmlElement(name = "PARTNER_REFS")
-    protected List<REDataExchangeAttrECD.PARTNER_REFS> PARTNER_REFS;
+    protected List<REDataExchangeAttrECD.PARTNERREFS> partnerrefs;
     @XmlElement(name = "GENERAL", required = true)
-    protected REDataExchangeAttrECD.GENERAL GENERAL;
+    protected REDataExchangeAttrECD.GENERAL general;
     @XmlElement(name = "CONTRACT")
-    protected REDataExchangeAttrECD.CONTRACT CONTRACT;
+    protected REDataExchangeAttrECD.CONTRACT contract;
     @XmlElement(name = "FINDOC")
-    protected REDataExchangeAttrECD.FINDOC FINDOC;
+    protected REDataExchangeAttrECD.FINDOC findoc;
     @XmlElement(name = "LETTERS")
-    protected REDataExchangeAttrECD.LETTERS LETTERS;
+    protected REDataExchangeAttrECD.LETTERS letters;
     @XmlElement(name = "ANY")
-    protected REDataExchangeAttrECD.ANY ANY;
+    protected REDataExchangeAttrECD.ANY any;
     @XmlElement(name = "ACTS")
-    protected REDataExchangeAttrECD.ACTS ACTS;
+    protected REDataExchangeAttrECD.ACTS acts;
     @XmlElement(name = "KPD")
-    protected REDataExchangeAttrECD.KPD KPD;
+    protected REDataExchangeAttrECD.KPD kpd;
     @XmlElement(name = "DFV")
-    protected REDataExchangeAttrECD.DFV DFV;
+    protected REDataExchangeAttrECD.DFV dfv;
     @XmlElement(name = "NNA")
-    protected REDataExchangeAttrECD.NNA NNA;
+    protected REDataExchangeAttrECD.NNA nna;
     @XmlElement(name = "CCC")
-    protected REDataExchangeAttrECD.CCC CCC;
-    @XmlElement(name = "BONIA")
-    protected REDataExchangeAttrECD.BONIA BONIA;
+    protected REDataExchangeAttrECD.CCC ccc;
     @XmlElement(name = "AttrFile")
-    protected List<REDataExchangeAttrFile> AttrFile;
-//    @XmlElement(name = "Content")
-//    protected byte[] Content;
+    protected List<REDataExchangeAttrFile> attrFile;
+
     /**
-     * Gets the value of the Header property.
+     * Gets the value of the header property.
      * 
      * @return
      *     possible object is
@@ -72,11 +838,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeHeader getHeader() {
-        return Header;
+        return header;
     }
 
     /**
-     * Sets the value of the Header property.
+     * Sets the value of the header property.
      * 
      * @param value
      *     allowed object is
@@ -84,17 +850,17 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setHeader(REDataExchangeHeader value) {
-        this.Header = value;
+        this.header = value;
     }
 
     /**
-     * Gets the value of the OBJECT_REFS property.
+     * Gets the value of the objectrefs property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore ANY modification you make to the
+     * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the OBJECT_REFS property.
+     * This is why there is not a <CODE>set</CODE> method for the objectrefs property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -105,42 +871,28 @@ public class REDataExchangeAttrECD {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link REDataExchangeAttrECD.OBJECT_REFS }
+     * {@link REDataExchangeAttrECD.OBJECTREFS }
      * 
      * 
      */
-    public List<REDataExchangeAttrECD.OBJECT_REFS> getOBJECTREFS() {
-        if (OBJECT_REFS == null) {
-            OBJECT_REFS = new ArrayList<REDataExchangeAttrECD.OBJECT_REFS>();
+    public List<REDataExchangeAttrECD.OBJECTREFS> getOBJECTREFS() {
+        if (objectrefs == null) {
+            objectrefs = new ArrayList<REDataExchangeAttrECD.OBJECTREFS>();
         }
-        return this.OBJECT_REFS;
+        return this.objectrefs;
     }
 
-    public void setOBJECT_REFS(Object object_refs) {
-        this.getOBJECTREFS().add((REDataExchangeAttrECD.OBJECT_REFS)object_refs);
+    public void setOBJECTREFS(Object object_refs) {
+        this.getOBJECTREFS().add((REDataExchangeAttrECD.OBJECTREFS)object_refs);
     }
-
-    public void setPARTNER_REFS(Object partner_refs) {
-        this.getPARTNERREFS().add((REDataExchangeAttrECD.PARTNER_REFS)partner_refs);
-    }
-
-    public void addAttrFile(REDataExchangeAttrFile attrFile) {
-        this.getAttrFile().add(attrFile);
-    }
-
-    public void setAttrFile(REDataExchangeAttrFile attrFile) {
-        this.AttrFile = new ArrayList<>(1);
-        AttrFile.add(attrFile);
-    }
-
     /**
-     * Gets the value of the PARTNER_REFS property.
+     * Gets the value of the partnerrefs property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore ANY modification you make to the
+     * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the PARTNER_REFS property.
+     * This is why there is not a <CODE>set</CODE> method for the partnerrefs property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -151,19 +903,24 @@ public class REDataExchangeAttrECD {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link REDataExchangeAttrECD.PARTNER_REFS }
+     * {@link REDataExchangeAttrECD.PARTNERREFS }
      * 
      * 
      */
-    public List<REDataExchangeAttrECD.PARTNER_REFS> getPARTNERREFS() {
-        if (PARTNER_REFS == null) {
-            PARTNER_REFS = new ArrayList<REDataExchangeAttrECD.PARTNER_REFS>();
+    public List<REDataExchangeAttrECD.PARTNERREFS> getPARTNERREFS() {
+        if (partnerrefs == null) {
+            partnerrefs = new ArrayList<REDataExchangeAttrECD.PARTNERREFS>();
         }
-        return this.PARTNER_REFS;
+        return this.partnerrefs;
+    }
+
+
+    public void setPARTNERREFS(Object partner_refs) {
+        this.getPARTNERREFS().add((REDataExchangeAttrECD.PARTNERREFS)partner_refs);
     }
 
     /**
-     * Gets the value of the GENERAL property.
+     * Gets the value of the general property.
      * 
      * @return
      *     possible object is
@@ -171,11 +928,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.GENERAL getGENERAL() {
-        return GENERAL;
+        return general;
     }
 
     /**
-     * Sets the value of the GENERAL property.
+     * Sets the value of the general property.
      * 
      * @param value
      *     allowed object is
@@ -183,11 +940,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setGENERAL(REDataExchangeAttrECD.GENERAL value) {
-        this.GENERAL = value;
+        this.general = value;
     }
 
     /**
-     * Gets the value of the CONTRACT property.
+     * Gets the value of the contract property.
      * 
      * @return
      *     possible object is
@@ -195,11 +952,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.CONTRACT getCONTRACT() {
-        return CONTRACT;
+        return contract;
     }
 
     /**
-     * Sets the value of the CONTRACT property.
+     * Sets the value of the contract property.
      * 
      * @param value
      *     allowed object is
@@ -207,11 +964,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setCONTRACT(REDataExchangeAttrECD.CONTRACT value) {
-        this.CONTRACT = value;
+        this.contract = value;
     }
 
     /**
-     * Gets the value of the FINDOC property.
+     * Gets the value of the findoc property.
      * 
      * @return
      *     possible object is
@@ -219,11 +976,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.FINDOC getFINDOC() {
-        return FINDOC;
+        return findoc;
     }
 
     /**
-     * Sets the value of the FINDOC property.
+     * Sets the value of the findoc property.
      * 
      * @param value
      *     allowed object is
@@ -231,11 +988,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setFINDOC(REDataExchangeAttrECD.FINDOC value) {
-        this.FINDOC = value;
+        this.findoc = value;
     }
 
     /**
-     * Gets the value of the LETTERS property.
+     * Gets the value of the letters property.
      * 
      * @return
      *     possible object is
@@ -243,11 +1000,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.LETTERS getLETTERS() {
-        return LETTERS;
+        return letters;
     }
 
     /**
-     * Sets the value of the LETTERS property.
+     * Sets the value of the letters property.
      * 
      * @param value
      *     allowed object is
@@ -255,11 +1012,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setLETTERS(REDataExchangeAttrECD.LETTERS value) {
-        this.LETTERS = value;
+        this.letters = value;
     }
 
     /**
-     * Gets the value of the ANY property.
+     * Gets the value of the any property.
      * 
      * @return
      *     possible object is
@@ -267,11 +1024,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.ANY getANY() {
-        return ANY;
+        return any;
     }
 
     /**
-     * Sets the value of the ANY property.
+     * Sets the value of the any property.
      * 
      * @param value
      *     allowed object is
@@ -279,11 +1036,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setANY(REDataExchangeAttrECD.ANY value) {
-        this.ANY = value;
+        this.any = value;
     }
 
     /**
-     * Gets the value of the ACTS property.
+     * Gets the value of the acts property.
      * 
      * @return
      *     possible object is
@@ -291,11 +1048,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.ACTS getACTS() {
-        return ACTS;
+        return acts;
     }
 
     /**
-     * Sets the value of the ACTS property.
+     * Sets the value of the acts property.
      * 
      * @param value
      *     allowed object is
@@ -303,11 +1060,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setACTS(REDataExchangeAttrECD.ACTS value) {
-        this.ACTS = value;
+        this.acts = value;
     }
 
     /**
-     * Gets the value of the KPD property.
+     * Gets the value of the kpd property.
      * 
      * @return
      *     possible object is
@@ -315,11 +1072,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.KPD getKPD() {
-        return KPD;
+        return kpd;
     }
 
     /**
-     * Sets the value of the KPD property.
+     * Sets the value of the kpd property.
      * 
      * @param value
      *     allowed object is
@@ -327,11 +1084,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setKPD(REDataExchangeAttrECD.KPD value) {
-        this.KPD = value;
+        this.kpd = value;
     }
 
     /**
-     * Gets the value of the DFV property.
+     * Gets the value of the dfv property.
      * 
      * @return
      *     possible object is
@@ -339,11 +1096,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.DFV getDFV() {
-        return DFV;
+        return dfv;
     }
 
     /**
-     * Sets the value of the DFV property.
+     * Sets the value of the dfv property.
      * 
      * @param value
      *     allowed object is
@@ -351,11 +1108,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setDFV(REDataExchangeAttrECD.DFV value) {
-        this.DFV = value;
+        this.dfv = value;
     }
 
     /**
-     * Gets the value of the NNA property.
+     * Gets the value of the nna property.
      * 
      * @return
      *     possible object is
@@ -363,11 +1120,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.NNA getNNA() {
-        return NNA;
+        return nna;
     }
 
     /**
-     * Sets the value of the NNA property.
+     * Sets the value of the nna property.
      * 
      * @param value
      *     allowed object is
@@ -375,11 +1132,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setNNA(REDataExchangeAttrECD.NNA value) {
-        this.NNA = value;
+        this.nna = value;
     }
 
     /**
-     * Gets the value of the CCC property.
+     * Gets the value of the ccc property.
      * 
      * @return
      *     possible object is
@@ -387,11 +1144,11 @@ public class REDataExchangeAttrECD {
      *     
      */
     public REDataExchangeAttrECD.CCC getCCC() {
-        return CCC;
+        return ccc;
     }
 
     /**
-     * Sets the value of the CCC property.
+     * Sets the value of the ccc property.
      * 
      * @param value
      *     allowed object is
@@ -399,42 +1156,17 @@ public class REDataExchangeAttrECD {
      *     
      */
     public void setCCC(REDataExchangeAttrECD.CCC value) {
-        this.CCC = value;
+        this.ccc = value;
     }
 
     /**
-     * Gets the value of the BONIA property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link REDataExchangeAttrECD.BONIA }
-     *     
-     */
-    public REDataExchangeAttrECD.BONIA getBONIA() {
-        return BONIA;
-    }
-
-    /**
-     * Sets the value of the BONIA property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link REDataExchangeAttrECD.BONIA }
-     *     
-     */
-    public void setBONIA(REDataExchangeAttrECD.BONIA value) {
-        this.BONIA = value;
-    }
-
-
-    /**
-     * Gets the value of the AttrFile property.
+     * Gets the value of the attrFile property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore ANY modification you make to the
+     * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the AttrFile property.
+     * This is why there is not a <CODE>set</CODE> method for the attrFile property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -450,44 +1182,113 @@ public class REDataExchangeAttrECD {
      * 
      */
     public List<REDataExchangeAttrFile> getAttrFile() {
-        if (AttrFile == null) {
-            AttrFile = new ArrayList<REDataExchangeAttrFile>();
+        if (attrFile == null) {
+            attrFile = new ArrayList<REDataExchangeAttrFile>();
         }
-        return this.AttrFile;
+        return this.attrFile;
+    }
+
+    public void addAttrFile(REDataExchangeAttrFile attrFile) {
+        this.getAttrFile().add(attrFile);
+    }
+
+    public void setAttrFile(REDataExchangeAttrFile attrFile) {
+        this.attrFile = new ArrayList<>(1);
+        this.attrFile.add(attrFile);
     }
 
 
-    
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="BP1">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="4"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XBP1">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="BP2">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="4"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XBP2">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="RECVDOCNUM" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="250"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="RECVDOCDATE" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+     *         &lt;element name="KADASTRNUM" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "BP1",
-            "XBP1",
-            "BP2",
-            "XBP2",
-            "RECVDOCNUM",
-            "RECVDOCDATE",
-            "KADASTRNUM"
+        "bp1",
+        "xbp1",
+        "bp2",
+        "xbp2",
+        "recvdocnum",
+        "recvdocdate",
+        "kadastrnum"
     })
     public static class ACTS {
 
         @XmlElement(name = "BP1", required = true)
-        protected String BP1;
+        protected String bp1;
         @XmlElement(name = "XBP1", required = true)
-        protected String XBP1;
+        protected String xbp1;
         @XmlElement(name = "BP2", required = true)
-        protected String BP2;
+        protected String bp2;
         @XmlElement(name = "XBP2", required = true)
-        protected String XBP2;
+        protected String xbp2;
         @XmlElement(name = "RECVDOCNUM")
-        protected String RECVDOCNUM;
+        protected String recvdocnum;
         @XmlElement(name = "RECVDOCDATE")
         @XmlSchemaType(name = "date")
-        protected LocalDate RECVDOCDATE;
+        protected XMLGregorianCalendar recvdocdate;
         @XmlElement(name = "KADASTRNUM")
-        protected String KADASTRNUM;
+        protected String kadastrnum;
 
         /**
-         * Gets the value of the BP1 property.
+         * Gets the value of the bp1 property.
          * 
          * @return
          *     possible object is
@@ -495,11 +1296,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getBP1() {
-            return BP1;
+            return bp1;
         }
 
         /**
-         * Sets the value of the BP1 property.
+         * Sets the value of the bp1 property.
          * 
          * @param value
          *     allowed object is
@@ -507,11 +1308,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setBP1(String value) {
-            this.BP1 = value;
+            this.bp1 = value;
         }
 
         /**
-         * Gets the value of the XBP1 property.
+         * Gets the value of the xbp1 property.
          * 
          * @return
          *     possible object is
@@ -519,11 +1320,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getXBP1() {
-            return XBP1;
+            return xbp1;
         }
 
         /**
-         * Sets the value of the XBP1 property.
+         * Sets the value of the xbp1 property.
          * 
          * @param value
          *     allowed object is
@@ -531,11 +1332,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setXBP1(String value) {
-            this.XBP1 = value;
+            this.xbp1 = value;
         }
 
         /**
-         * Gets the value of the BP2 property.
+         * Gets the value of the bp2 property.
          * 
          * @return
          *     possible object is
@@ -543,11 +1344,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getBP2() {
-            return BP2;
+            return bp2;
         }
 
         /**
-         * Sets the value of the BP2 property.
+         * Sets the value of the bp2 property.
          * 
          * @param value
          *     allowed object is
@@ -555,11 +1356,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setBP2(String value) {
-            this.BP2 = value;
+            this.bp2 = value;
         }
 
         /**
-         * Gets the value of the XBP2 property.
+         * Gets the value of the xbp2 property.
          * 
          * @return
          *     possible object is
@@ -567,11 +1368,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getXBP2() {
-            return XBP2;
+            return xbp2;
         }
 
         /**
-         * Sets the value of the XBP2 property.
+         * Sets the value of the xbp2 property.
          * 
          * @param value
          *     allowed object is
@@ -579,11 +1380,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setXBP2(String value) {
-            this.XBP2 = value;
+            this.xbp2 = value;
         }
 
         /**
-         * Gets the value of the RECVDOCNUM property.
+         * Gets the value of the recvdocnum property.
          * 
          * @return
          *     possible object is
@@ -591,11 +1392,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getRECVDOCNUM() {
-            return RECVDOCNUM;
+            return recvdocnum;
         }
 
         /**
-         * Sets the value of the RECVDOCNUM property.
+         * Sets the value of the recvdocnum property.
          * 
          * @param value
          *     allowed object is
@@ -603,35 +1404,35 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setRECVDOCNUM(String value) {
-            this.RECVDOCNUM = value;
+            this.recvdocnum = value;
         }
 
         /**
-         * Gets the value of the RECVDOCDATE property.
+         * Gets the value of the recvdocdate property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECVDOCDATE() {
-            return RECVDOCDATE;
+        public XMLGregorianCalendar getRECVDOCDATE() {
+            return recvdocdate;
         }
 
         /**
-         * Sets the value of the RECVDOCDATE property.
+         * Sets the value of the recvdocdate property.
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECVDOCDATE(LocalDate value) {
-            this.RECVDOCDATE = value;
+        public void setRECVDOCDATE(XMLGregorianCalendar value) {
+            this.recvdocdate = value;
         }
 
         /**
-         * Gets the value of the KADASTRNUM property.
+         * Gets the value of the kadastrnum property.
          * 
          * @return
          *     possible object is
@@ -639,11 +1440,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getKADASTRNUM() {
-            return KADASTRNUM;
+            return kadastrnum;
         }
 
         /**
-         * Sets the value of the KADASTRNUM property.
+         * Sets the value of the kadastrnum property.
          * 
          * @param value
          *     allowed object is
@@ -651,7 +1452,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setKADASTRNUM(String value) {
-            this.KADASTRNUM = value;
+            this.kadastrnum = value;
         }
 
     }
@@ -736,48 +1537,48 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "CUSTOMER",
-            "CHILDORG",
-            "XCHILDORG",
-            "PERIODBEGIN",
-            "CONSTRUCTOBJECT",
-            "CONSTRUCTNAME",
-            "PERIOD",
-            "LINKDOCNUM",
-            "LINKDOCDATE",
-            "SUMMA",
-            "CALCCURR"
+        "customer",
+        "childorg",
+        "xchildorg",
+        "periodbegin",
+        "constructobject",
+        "constructname",
+        "period",
+        "linkdocnum",
+        "linkdocdate",
+        "summa",
+        "calccurr"
     })
     public static class ANY {
 
         @XmlElement(name = "CUSTOMER", required = true)
-        protected String CUSTOMER;
+        protected String customer;
         @XmlElement(name = "CHILDORG", required = true)
-        protected String CHILDORG;
+        protected String childorg;
         @XmlElement(name = "XCHILDORG", required = true)
-        protected String XCHILDORG;
+        protected String xchildorg;
         @XmlElement(name = "PERIODBEGIN", required = true)
-        //@XmlSchemaType(name = "date")
-        protected LocalDate PERIODBEGIN;
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar periodbegin;
         @XmlElement(name = "CONSTRUCTOBJECT")
-        protected String CONSTRUCTOBJECT;
+        protected String constructobject;
         @XmlElement(name = "CONSTRUCTNAME")
-        protected String CONSTRUCTNAME;
+        protected String constructname;
         @XmlElement(name = "PERIOD")
-//        @XmlSchemaType(name = "date")
-        protected LocalDate PERIOD;
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar period;
         @XmlElement(name = "LINKDOCNUM")
-        protected String LINKDOCNUM;
+        protected String linkdocnum;
         @XmlElement(name = "LINKDOCDATE")
-//        @XmlSchemaType(name = "date")
-        protected LocalDate LINKDOCDATE;
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar linkdocdate;
         @XmlElement(name = "SUMMA")
-        protected String SUMMA;
+        protected String summa;
         @XmlElement(name = "CALCCURR")
-        protected String CALCCURR;
+        protected String calccurr;
 
         /**
-         * Gets the value of the CUSTOMER property.
+         * Gets the value of the customer property.
          * 
          * @return
          *     possible object is
@@ -785,11 +1586,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getCUSTOMER() {
-            return CUSTOMER;
+            return customer;
         }
 
         /**
-         * Sets the value of the CUSTOMER property.
+         * Sets the value of the customer property.
          * 
          * @param value
          *     allowed object is
@@ -797,11 +1598,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setCUSTOMER(String value) {
-            this.CUSTOMER = value;
+            this.customer = value;
         }
 
         /**
-         * Gets the value of the CHILDORG property.
+         * Gets the value of the childorg property.
          * 
          * @return
          *     possible object is
@@ -809,11 +1610,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getCHILDORG() {
-            return CHILDORG;
+            return childorg;
         }
 
         /**
-         * Sets the value of the CHILDORG property.
+         * Sets the value of the childorg property.
          * 
          * @param value
          *     allowed object is
@@ -821,11 +1622,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setCHILDORG(String value) {
-            this.CHILDORG = value;
+            this.childorg = value;
         }
 
         /**
-         * Gets the value of the XCHILDORG property.
+         * Gets the value of the xchildorg property.
          * 
          * @return
          *     possible object is
@@ -833,11 +1634,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getXCHILDORG() {
-            return XCHILDORG;
+            return xchildorg;
         }
 
         /**
-         * Sets the value of the XCHILDORG property.
+         * Sets the value of the xchildorg property.
          * 
          * @param value
          *     allowed object is
@@ -845,35 +1646,35 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setXCHILDORG(String value) {
-            this.XCHILDORG = value;
+            this.xchildorg = value;
         }
 
         /**
-         * Gets the value of the PERIODBEGIN property.
+         * Gets the value of the periodbegin property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getPERIODBEGIN() {
-            return PERIODBEGIN;
+        public XMLGregorianCalendar getPERIODBEGIN() {
+            return periodbegin;
         }
 
         /**
-         * Sets the value of the PERIODBEGIN property.
+         * Sets the value of the periodbegin property.
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setPERIODBEGIN(LocalDate value) {
-            this.PERIODBEGIN = value;
+        public void setPERIODBEGIN(XMLGregorianCalendar value) {
+            this.periodbegin = value;
         }
 
         /**
-         * Gets the value of the CONSTRUCTOBJECT property.
+         * Gets the value of the constructobject property.
          * 
          * @return
          *     possible object is
@@ -881,11 +1682,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getCONSTRUCTOBJECT() {
-            return CONSTRUCTOBJECT;
+            return constructobject;
         }
 
         /**
-         * Sets the value of the CONSTRUCTOBJECT property.
+         * Sets the value of the constructobject property.
          * 
          * @param value
          *     allowed object is
@@ -893,11 +1694,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setCONSTRUCTOBJECT(String value) {
-            this.CONSTRUCTOBJECT = value;
+            this.constructobject = value;
         }
 
         /**
-         * Gets the value of the CONSTRUCTNAME property.
+         * Gets the value of the constructname property.
          * 
          * @return
          *     possible object is
@@ -905,11 +1706,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getCONSTRUCTNAME() {
-            return CONSTRUCTNAME;
+            return constructname;
         }
 
         /**
-         * Sets the value of the CONSTRUCTNAME property.
+         * Sets the value of the constructname property.
          * 
          * @param value
          *     allowed object is
@@ -917,35 +1718,35 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setCONSTRUCTNAME(String value) {
-            this.CONSTRUCTNAME = value;
+            this.constructname = value;
         }
 
         /**
-         * Gets the value of the PERIOD property.
+         * Gets the value of the period property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getPERIOD() {
-            return PERIOD;
+        public XMLGregorianCalendar getPERIOD() {
+            return period;
         }
 
         /**
-         * Sets the value of the PERIOD property.
+         * Sets the value of the period property.
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setPERIOD(LocalDate value) {
-            this.PERIOD = value;
+        public void setPERIOD(XMLGregorianCalendar value) {
+            this.period = value;
         }
 
         /**
-         * Gets the value of the LINKDOCNUM property.
+         * Gets the value of the linkdocnum property.
          * 
          * @return
          *     possible object is
@@ -953,11 +1754,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getLINKDOCNUM() {
-            return LINKDOCNUM;
+            return linkdocnum;
         }
 
         /**
-         * Sets the value of the LINKDOCNUM property.
+         * Sets the value of the linkdocnum property.
          * 
          * @param value
          *     allowed object is
@@ -965,35 +1766,35 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setLINKDOCNUM(String value) {
-            this.LINKDOCNUM = value;
+            this.linkdocnum = value;
         }
 
         /**
-         * Gets the value of the LINKDOCDATE property.
+         * Gets the value of the linkdocdate property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getLINKDOCDATE() {
-            return LINKDOCDATE;
+        public XMLGregorianCalendar getLINKDOCDATE() {
+            return linkdocdate;
         }
 
         /**
-         * Sets the value of the LINKDOCDATE property.
+         * Sets the value of the linkdocdate property.
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setLINKDOCDATE(LocalDate value) {
-            this.LINKDOCDATE = value;
+        public void setLINKDOCDATE(XMLGregorianCalendar value) {
+            this.linkdocdate = value;
         }
 
         /**
-         * Gets the value of the SUMMA property.
+         * Gets the value of the summa property.
          * 
          * @return
          *     possible object is
@@ -1001,11 +1802,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getSUMMA() {
-            return SUMMA;
+            return summa;
         }
 
         /**
-         * Sets the value of the SUMMA property.
+         * Sets the value of the summa property.
          * 
          * @param value
          *     allowed object is
@@ -1013,11 +1814,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setSUMMA(String value) {
-            this.SUMMA = value;
+            this.summa = value;
         }
 
         /**
-         * Gets the value of the CALCCURR property.
+         * Gets the value of the calccurr property.
          * 
          * @return
          *     possible object is
@@ -1025,11 +1826,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getCALCCURR() {
-            return CALCCURR;
+            return calccurr;
         }
 
         /**
-         * Sets the value of the CALCCURR property.
+         * Sets the value of the calccurr property.
          * 
          * @param value
          *     allowed object is
@@ -1037,7 +1838,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setCALCCURR(String value) {
-            this.CALCCURR = value;
+            this.calccurr = value;
         }
 
     }
@@ -1053,24 +1854,24 @@ public class REDataExchangeAttrECD {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="WAY_RELSAPER_ID" minOccurs="0">
+     *         &lt;element name="RATINGOBJECT">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="1"/>
+     *               &lt;maxLength value="400"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
-     *         &lt;element name="COORDINAT_PAGE" minOccurs="0">
+     *         &lt;element name="ESTIMATEDORG" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="20"/>
+     *               &lt;maxLength value="12"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
-     *         &lt;element name="ANCHOR" minOccurs="0">
+     *         &lt;element name="XESTIMATEDORG" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="20"/>
+     *               &lt;maxLength value="400"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
@@ -1084,110 +1885,21 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "wayrelsaperid",
-        "coordinatpage",
-        "anchor"
-    })
-    public static class BONIA {
-
-        @XmlElement(name = "WAY_RELSAPER_ID")
-        protected String wayrelsaperid;
-        @XmlElement(name = "COORDINAT_PAGE")
-        protected String coordinatpage;
-        @XmlElement(name = "ANCHOR")
-        protected String anchor;
-
-        /**
-         * Gets the value of the wayrelsaperid property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getWAYRELSAPERID() {
-            return wayrelsaperid;
-        }
-
-        /**
-         * Sets the value of the wayrelsaperid property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setWAYRELSAPERID(String value) {
-            this.wayrelsaperid = value;
-        }
-
-        /**
-         * Gets the value of the coordinatpage property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getCOORDINATPAGE() {
-            return coordinatpage;
-        }
-
-        /**
-         * Sets the value of the coordinatpage property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setCOORDINATPAGE(String value) {
-            this.coordinatpage = value;
-        }
-
-        /**
-         * Gets the value of the anchor property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getANCHOR() {
-            return anchor;
-        }
-
-        /**
-         * Sets the value of the anchor property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setANCHOR(String value) {
-            this.anchor = value;
-        }
-
-    }
-
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "RATINGOBJECT",
-            "ESTIMATEDORG",
-            "XESTIMATEDORG"
+        "ratingobject",
+        "estimatedorg",
+        "xestimatedorg"
     })
     public static class CCC {
 
         @XmlElement(name = "RATINGOBJECT", required = true)
-        protected String RATINGOBJECT;
+        protected String ratingobject;
         @XmlElement(name = "ESTIMATEDORG")
-        protected String ESTIMATEDORG;
+        protected String estimatedorg;
         @XmlElement(name = "XESTIMATEDORG")
-        protected String XESTIMATEDORG;
+        protected String xestimatedorg;
 
         /**
-         * Gets the value of the RATINGOBJECT property.
+         * Gets the value of the ratingobject property.
          * 
          * @return
          *     possible object is
@@ -1195,11 +1907,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getRATINGOBJECT() {
-            return RATINGOBJECT;
+            return ratingobject;
         }
 
         /**
-         * Sets the value of the RATINGOBJECT property.
+         * Sets the value of the ratingobject property.
          * 
          * @param value
          *     allowed object is
@@ -1207,11 +1919,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setRATINGOBJECT(String value) {
-            this.RATINGOBJECT = value;
+            this.ratingobject = value;
         }
 
         /**
-         * Gets the value of the ESTIMATEDORG property.
+         * Gets the value of the estimatedorg property.
          * 
          * @return
          *     possible object is
@@ -1219,11 +1931,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getESTIMATEDORG() {
-            return ESTIMATEDORG;
+            return estimatedorg;
         }
 
         /**
-         * Sets the value of the ESTIMATEDORG property.
+         * Sets the value of the estimatedorg property.
          * 
          * @param value
          *     allowed object is
@@ -1231,11 +1943,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setESTIMATEDORG(String value) {
-            this.ESTIMATEDORG = value;
+            this.estimatedorg = value;
         }
 
         /**
-         * Gets the value of the XESTIMATEDORG property.
+         * Gets the value of the xestimatedorg property.
          * 
          * @return
          *     possible object is
@@ -1243,11 +1955,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getXESTIMATEDORG() {
-            return XESTIMATEDORG;
+            return xestimatedorg;
         }
 
         /**
-         * Sets the value of the XESTIMATEDORG property.
+         * Sets the value of the xestimatedorg property.
          * 
          * @param value
          *     allowed object is
@@ -1255,7 +1967,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setXESTIMATEDORG(String value) {
-            this.XESTIMATEDORG = value;
+            this.xestimatedorg = value;
         }
 
     }
@@ -1360,28 +2072,28 @@ public class REDataExchangeAttrECD {
         protected String xbp2;
         @XmlElement(name = "RECNBEG")
         @XmlSchemaType(name = "date")
-        protected LocalDate recnbeg;
+        protected XMLGregorianCalendar recnbeg;
         @XmlElement(name = "RECNEND1ST")
         @XmlSchemaType(name = "date")
-        protected LocalDate recnend1ST;
+        protected XMLGregorianCalendar recnend1ST;
         @XmlElement(name = "RECNREGDJR")
         @XmlSchemaType(name = "date")
-        protected LocalDate recnregdjr;
+        protected XMLGregorianCalendar recnregdjr;
         @XmlElement(name = "RECNREGJR")
         protected String recnregjr;
         @XmlElement(name = "RECNREGDCH")
         @XmlSchemaType(name = "date")
-        protected LocalDate recnregdch;
+        protected XMLGregorianCalendar recnregdch;
         @XmlElement(name = "RECNNRCH")
         protected String recnnrch;
         @XmlElement(name = "RECNREGST")
         protected String recnregst;
         @XmlElement(name = "RECNREGDST")
         @XmlSchemaType(name = "date")
-        protected LocalDate recnregdst;
+        protected XMLGregorianCalendar recnregdst;
 
         /**
-         * Gets the value of the BP1 property.
+         * Gets the value of the bp1 property.
          * 
          * @return
          *     possible object is
@@ -1393,7 +2105,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the BP1 property.
+         * Sets the value of the bp1 property.
          * 
          * @param value
          *     allowed object is
@@ -1405,7 +2117,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the XBP1 property.
+         * Gets the value of the xbp1 property.
          * 
          * @return
          *     possible object is
@@ -1417,7 +2129,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the XBP1 property.
+         * Sets the value of the xbp1 property.
          * 
          * @param value
          *     allowed object is
@@ -1429,7 +2141,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the BP2 property.
+         * Gets the value of the bp2 property.
          * 
          * @return
          *     possible object is
@@ -1441,7 +2153,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the BP2 property.
+         * Sets the value of the bp2 property.
          * 
          * @param value
          *     allowed object is
@@ -1453,7 +2165,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the XBP2 property.
+         * Gets the value of the xbp2 property.
          * 
          * @return
          *     possible object is
@@ -1465,7 +2177,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the XBP2 property.
+         * Sets the value of the xbp2 property.
          * 
          * @param value
          *     allowed object is
@@ -1481,10 +2193,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECNBEG() {
+        public XMLGregorianCalendar getRECNBEG() {
             return recnbeg;
         }
 
@@ -1493,10 +2205,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECNBEG(LocalDate value) {
+        public void setRECNBEG(XMLGregorianCalendar value) {
             this.recnbeg = value;
         }
 
@@ -1505,10 +2217,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECNEND1ST() {
+        public XMLGregorianCalendar getRECNEND1ST() {
             return recnend1ST;
         }
 
@@ -1517,10 +2229,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECNEND1ST(LocalDate value) {
+        public void setRECNEND1ST(XMLGregorianCalendar value) {
             this.recnend1ST = value;
         }
 
@@ -1529,10 +2241,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECNREGDJR() {
+        public XMLGregorianCalendar getRECNREGDJR() {
             return recnregdjr;
         }
 
@@ -1541,10 +2253,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECNREGDJR(LocalDate value) {
+        public void setRECNREGDJR(XMLGregorianCalendar value) {
             this.recnregdjr = value;
         }
 
@@ -1577,10 +2289,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECNREGDCH() {
+        public XMLGregorianCalendar getRECNREGDCH() {
             return recnregdch;
         }
 
@@ -1589,10 +2301,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECNREGDCH(LocalDate value) {
+        public void setRECNREGDCH(XMLGregorianCalendar value) {
             this.recnregdch = value;
         }
 
@@ -1649,10 +2361,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECNREGDST() {
+        public XMLGregorianCalendar getRECNREGDST() {
             return recnregdst;
         }
 
@@ -1661,10 +2373,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECNREGDST(LocalDate value) {
+        public void setRECNREGDST(XMLGregorianCalendar value) {
             this.recnregdst = value;
         }
 
@@ -1782,14 +2494,14 @@ public class REDataExchangeAttrECD {
         protected String bukrs;
         @XmlElement(name = "REGDATE")
         @XmlSchemaType(name = "date")
-        protected LocalDate regdate;
+        protected XMLGregorianCalendar regdate;
         @XmlElement(name = "REGNUM")
         protected String regnum;
         @XmlElement(name = "DOCNUM")
         protected String docnum;
         @XmlElement(name = "DOCDATE")
         @XmlSchemaType(name = "date")
-        protected LocalDate docdate;
+        protected XMLGregorianCalendar docdate;
         @XmlElement(name = "DOCNAME")
         protected String docname;
         @XmlElement(name = "NODOCNUM")
@@ -1880,10 +2592,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getREGDATE() {
+        public XMLGregorianCalendar getREGDATE() {
             return regdate;
         }
 
@@ -1892,10 +2604,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setREGDATE(LocalDate value) {
+        public void setREGDATE(XMLGregorianCalendar value) {
             this.regdate = value;
         }
 
@@ -1924,7 +2636,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the DOCNUM property.
+         * Gets the value of the docnum property.
          * 
          * @return
          *     possible object is
@@ -1936,7 +2648,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the DOCNUM property.
+         * Sets the value of the docnum property.
          * 
          * @param value
          *     allowed object is
@@ -1948,31 +2660,31 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the DOCDATE property.
+         * Gets the value of the docdate property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getDOCDATE() {
+        public XMLGregorianCalendar getDOCDATE() {
             return docdate;
         }
 
         /**
-         * Sets the value of the DOCDATE property.
+         * Sets the value of the docdate property.
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setDOCDATE(LocalDate value) {
+        public void setDOCDATE(XMLGregorianCalendar value) {
             this.docdate = value;
         }
 
         /**
-         * Gets the value of the DOCNAME property.
+         * Gets the value of the docname property.
          * 
          * @return
          *     possible object is
@@ -1984,7 +2696,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the DOCNAME property.
+         * Sets the value of the docname property.
          * 
          * @param value
          *     allowed object is
@@ -1996,7 +2708,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the NODOCNUM property.
+         * Gets the value of the nodocnum property.
          * 
          * @return
          *     possible object is
@@ -2008,7 +2720,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the NODOCNUM property.
+         * Sets the value of the nodocnum property.
          * 
          * @param value
          *     allowed object is
@@ -2020,7 +2732,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the NODOCDATE property.
+         * Gets the value of the nodocdate property.
          * 
          * @return
          *     possible object is
@@ -2032,7 +2744,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the NODOCDATE property.
+         * Sets the value of the nodocdate property.
          * 
          * @param value
          *     allowed object is
@@ -2044,7 +2756,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the REMARKS property.
+         * Gets the value of the remarks property.
          * 
          * @return
          *     possible object is
@@ -2056,7 +2768,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the REMARKS property.
+         * Sets the value of the remarks property.
          * 
          * @param value
          *     allowed object is
@@ -2213,7 +2925,7 @@ public class REDataExchangeAttrECD {
         protected String xchildorg;
         @XmlElement(name = "RECND", required = true)
         @XmlSchemaType(name = "date")
-        protected LocalDate recnd;
+        protected XMLGregorianCalendar recnd;
         @XmlElement(name = "AJAHR")
         protected String ajahr;
         @XmlElement(name = "RECNTYPE", required = true)
@@ -2252,7 +2964,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the XCHILDORG property.
+         * Gets the value of the xchildorg property.
          * 
          * @return
          *     possible object is
@@ -2264,7 +2976,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the XCHILDORG property.
+         * Sets the value of the xchildorg property.
          * 
          * @param value
          *     allowed object is
@@ -2280,10 +2992,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getRECND() {
+        public XMLGregorianCalendar getRECND() {
             return recnd;
         }
 
@@ -2292,10 +3004,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setRECND(LocalDate value) {
+        public void setRECND(XMLGregorianCalendar value) {
             this.recnd = value;
         }
 
@@ -2348,7 +3060,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the SUMMA property.
+         * Gets the value of the summa property.
          * 
          * @return
          *     possible object is
@@ -2360,7 +3072,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the SUMMA property.
+         * Sets the value of the summa property.
          * 
          * @param value
          *     allowed object is
@@ -2396,7 +3108,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the CALCCURR property.
+         * Gets the value of the calccurr property.
          * 
          * @return
          *     possible object is
@@ -2408,7 +3120,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the CALCCURR property.
+         * Sets the value of the calccurr property.
          * 
          * @param value
          *     allowed object is
@@ -2518,43 +3230,43 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "DOCTYPE",
-            "DOCGR_CODE",
-            "DOCNUM",
-            "DOCDATE",
-            "DOCNAME",
-            "NODOCNUM",
-            "NODOCDATE",
-            "REMARKS",
-            "RERF",
-            "AUTORDOC"
+        "doctype",
+        "docgrcode",
+        "docnum",
+        "docdate",
+        "docname",
+        "nodocnum",
+        "nodocdate",
+        "remarks",
+        "rerf",
+        "autordoc"
     })
     public static class GENERAL {
 
         @XmlElement(name = "DOCTYPE", required = true)
-        protected String DOCTYPE;
+        protected String doctype;
         @XmlElement(name = "DOCGR_CODE", required = true)
-        protected String DOCGR_CODE;
+        protected String docgrcode;
         @XmlElement(name = "DOCNUM", required = true)
-        protected String DOCNUM;
+        protected String docnum;
         @XmlElement(name = "DOCDATE", required = true)
-        //@XmlSchemaType(name = "date")
-        protected LocalDate DOCDATE;
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar docdate;
         @XmlElement(name = "DOCNAME")
-        protected String DOCNAME;
+        protected String docname;
         @XmlElement(name = "NODOCNUM")
-        protected Boolean NODOCNUM;
+        protected Boolean nodocnum;
         @XmlElement(name = "NODOCDATE")
-        protected Boolean NODOCDATE;
+        protected Boolean nodocdate;
         @XmlElement(name = "REMARKS")
-        protected String REMARKS;
+        protected String remarks;
         @XmlElement(name = "RERF", required = true)
-        protected String RERF;
+        protected String rerf;
         @XmlElement(name = "AUTORDOC", required = true)
-        protected String AUTORDOC;
+        protected String autordoc;
 
         /**
-         * Gets the value of the DOCTYPE property.
+         * Gets the value of the doctype property.
          * 
          * @return
          *     possible object is
@@ -2562,11 +3274,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCTYPE() {
-            return DOCTYPE;
+            return doctype;
         }
 
         /**
-         * Sets the value of the DOCTYPE property.
+         * Sets the value of the doctype property.
          * 
          * @param value
          *     allowed object is
@@ -2574,11 +3286,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCTYPE(String value) {
-            this.DOCTYPE = value;
+            this.doctype = value;
         }
 
         /**
-         * Gets the value of the DOCGR_CODE property.
+         * Gets the value of the docgrcode property.
          * 
          * @return
          *     possible object is
@@ -2586,11 +3298,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCGRCODE() {
-            return DOCGR_CODE;
+            return docgrcode;
         }
 
         /**
-         * Sets the value of the DOCGR_CODE property.
+         * Sets the value of the docgrcode property.
          * 
          * @param value
          *     allowed object is
@@ -2598,11 +3310,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCGRCODE(String value) {
-            this.DOCGR_CODE = value;
+            this.docgrcode = value;
         }
 
         /**
-         * Gets the value of the DOCNUM property.
+         * Gets the value of the docnum property.
          * 
          * @return
          *     possible object is
@@ -2610,11 +3322,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCNUM() {
-            return DOCNUM;
+            return docnum;
         }
 
         /**
-         * Sets the value of the DOCNUM property.
+         * Sets the value of the docnum property.
          * 
          * @param value
          *     allowed object is
@@ -2622,75 +3334,312 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCNUM(String value) {
-            this.DOCNUM = value;
+            this.docnum = value;
         }
 
         /**
-         * Gets the value of the DOCDATE property.
+         * Gets the value of the docdate property.
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getDOCDATE() {
-            return DOCDATE;
+        public XMLGregorianCalendar getDOCDATE() {
+            return docdate;
         }
 
-        public void setDOCDATE(LocalDate value) {
-            this.DOCDATE = value;
+        /**
+         * Sets the value of the docdate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setDOCDATE(XMLGregorianCalendar value) {
+            this.docdate = value;
         }
 
+        /**
+         * Gets the value of the docname property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
         public String getDOCNAME() {
-            return DOCNAME;
+            return docname;
         }
 
+        /**
+         * Sets the value of the docname property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
         public void setDOCNAME(String value) {
-            this.DOCNAME = value;
+            this.docname = value;
         }
 
+        /**
+         * Gets the value of the nodocnum property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
         public Boolean isNODOCNUM() {
-            return NODOCNUM;
+            return nodocnum;
         }
 
+        /**
+         * Sets the value of the nodocnum property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
         public void setNODOCNUM(Boolean value) {
-            this.NODOCNUM = value;
+            this.nodocnum = value;
         }
 
+        /**
+         * Gets the value of the nodocdate property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
         public Boolean isNODOCDATE() {
-            return NODOCDATE;
+            return nodocdate;
         }
 
+        /**
+         * Sets the value of the nodocdate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
         public void setNODOCDATE(Boolean value) {
-            this.NODOCDATE = value;
+            this.nodocdate = value;
         }
 
+        /**
+         * Gets the value of the remarks property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
         public String getREMARKS() {
-            return REMARKS;
+            return remarks;
         }
 
+        /**
+         * Sets the value of the remarks property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
         public void setREMARKS(String value) {
-            this.REMARKS = value;
+            this.remarks = value;
         }
 
+        /**
+         * Gets the value of the rerf property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
         public String getRERF() {
-            return RERF;
+            return rerf;
         }
 
+        /**
+         * Sets the value of the rerf property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
         public void setRERF(String value) {
-            this.RERF = value;
+            this.rerf = value;
         }
 
+        /**
+         * Gets the value of the autordoc property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
         public String getAUTORDOC() {
-            return AUTORDOC;
+            return autordoc;
         }
 
+        /**
+         * Sets the value of the autordoc property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
         public void setAUTORDOC(String value) {
-            this.AUTORDOC = value;
+            this.autordoc = value;
         }
 
     }
 
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="LAWSUBJECT">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="4"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XLAWSUBJECT">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XOLTYPE">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="24"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="OLTYPE" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="1"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="REGNUM">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="24"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="REGDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *         &lt;element name="CERTSER">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="5"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="CERTNUM">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="20"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="CERTDATE" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *         &lt;element name="CHILDORG">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="4"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XCHILDORG">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XOBJOFLAW">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="KADASTRNUM" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="100"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="XLAWTYPE" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="100"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="LAWTYPE" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="INVENTORNUM" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="BP1" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="10"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="RECNREGOROLD" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;maxLength value="400"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "lawsubject",
@@ -2726,14 +3675,14 @@ public class REDataExchangeAttrECD {
         protected String regnum;
         @XmlElement(name = "REGDATE", required = true)
         @XmlSchemaType(name = "date")
-        protected LocalDate regdate;
+        protected XMLGregorianCalendar regdate;
         @XmlElement(name = "CERTSER", required = true)
         protected String certser;
         @XmlElement(name = "CERTNUM", required = true)
         protected String certnum;
         @XmlElement(name = "CERTDATE", required = true)
         @XmlSchemaType(name = "date")
-        protected LocalDate certdate;
+        protected XMLGregorianCalendar certdate;
         @XmlElement(name = "CHILDORG", required = true)
         protected String childorg;
         @XmlElement(name = "XCHILDORG", required = true)
@@ -2878,10 +3827,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getREGDATE() {
+        public XMLGregorianCalendar getREGDATE() {
             return regdate;
         }
 
@@ -2890,10 +3839,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setREGDATE(LocalDate value) {
+        public void setREGDATE(XMLGregorianCalendar value) {
             this.regdate = value;
         }
 
@@ -2950,10 +3899,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getCERTDATE() {
+        public XMLGregorianCalendar getCERTDATE() {
             return certdate;
         }
 
@@ -2962,15 +3911,15 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setCERTDATE(LocalDate value) {
+        public void setCERTDATE(XMLGregorianCalendar value) {
             this.certdate = value;
         }
 
         /**
-         * Gets the value of the CHILDORG property.
+         * Gets the value of the childorg property.
          * 
          * @return
          *     possible object is
@@ -2982,7 +3931,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the CHILDORG property.
+         * Sets the value of the childorg property.
          * 
          * @param value
          *     allowed object is
@@ -2994,7 +3943,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the XCHILDORG property.
+         * Gets the value of the xchildorg property.
          * 
          * @return
          *     possible object is
@@ -3006,7 +3955,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the XCHILDORG property.
+         * Sets the value of the xchildorg property.
          * 
          * @param value
          *     allowed object is
@@ -3042,7 +3991,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the KADASTRNUM property.
+         * Gets the value of the kadastrnum property.
          * 
          * @return
          *     possible object is
@@ -3054,7 +4003,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the KADASTRNUM property.
+         * Sets the value of the kadastrnum property.
          * 
          * @param value
          *     allowed object is
@@ -3138,7 +4087,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the BP1 property.
+         * Gets the value of the bp1 property.
          * 
          * @return
          *     possible object is
@@ -3150,7 +4099,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the BP1 property.
+         * Sets the value of the bp1 property.
          * 
          * @param value
          *     allowed object is
@@ -3471,7 +4420,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the SUMMA property.
+         * Gets the value of the summa property.
          * 
          * @return
          *     possible object is
@@ -3483,7 +4432,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the SUMMA property.
+         * Sets the value of the summa property.
          * 
          * @param value
          *     allowed object is
@@ -3495,7 +4444,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the CALCCURR property.
+         * Gets the value of the calccurr property.
          * 
          * @return
          *     possible object is
@@ -3507,7 +4456,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the CALCCURR property.
+         * Sets the value of the calccurr property.
          * 
          * @param value
          *     allowed object is
@@ -3618,10 +4567,10 @@ public class REDataExchangeAttrECD {
         protected String ogrn;
         @XmlElement(name = "EGRJLDATE")
         @XmlSchemaType(name = "date")
-        protected LocalDate egrjldate;
+        protected XMLGregorianCalendar egrjldate;
         @XmlElement(name = "EGRPDATE")
         @XmlSchemaType(name = "date")
-        protected LocalDate egrpdate;
+        protected XMLGregorianCalendar egrpdate;
         @XmlElement(name = "EGRPNUM")
         protected String egrpnum;
 
@@ -3722,7 +4671,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Gets the value of the KADASTRNUM property.
+         * Gets the value of the kadastrnum property.
          * 
          * @return
          *     possible object is
@@ -3734,7 +4683,7 @@ public class REDataExchangeAttrECD {
         }
 
         /**
-         * Sets the value of the KADASTRNUM property.
+         * Sets the value of the kadastrnum property.
          * 
          * @param value
          *     allowed object is
@@ -3774,10 +4723,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getEGRJLDATE() {
+        public XMLGregorianCalendar getEGRJLDATE() {
             return egrjldate;
         }
 
@@ -3786,10 +4735,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setEGRJLDATE(LocalDate value) {
+        public void setEGRJLDATE(XMLGregorianCalendar value) {
             this.egrjldate = value;
         }
 
@@ -3798,10 +4747,10 @@ public class REDataExchangeAttrECD {
          * 
          * @return
          *     possible object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public LocalDate getEGRPDATE() {
+        public XMLGregorianCalendar getEGRPDATE() {
             return egrpdate;
         }
 
@@ -3810,10 +4759,10 @@ public class REDataExchangeAttrECD {
          * 
          * @param value
          *     allowed object is
-         *     {@link LocalDate }
+         *     {@link XMLGregorianCalendar }
          *     
          */
-        public void setEGRPDATE(LocalDate value) {
+        public void setEGRPDATE(XMLGregorianCalendar value) {
             this.egrpdate = value;
         }
 
@@ -3893,27 +4842,27 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "OBJECT_REF",
-            "ObjCommType",
-            "LINK",
-            "DOCGUID",
-            "Delete"
+        "objectref",
+        "objCommType",
+        "link",
+        "docguid",
+        "delete"
     })
-    public static class OBJECT_REFS {
+    public static class OBJECTREFS {
 
         @XmlElement(name = "OBJECT_REF", required = true)
-        protected String OBJECT_REF;
+        protected String objectref;
         @XmlElement(name = "ObjCommType")
-        protected String ObjCommType;
+        protected String objCommType;
         @XmlElement(name = "LINK")
-        protected String LINK;
+        protected String link;
         @XmlElement(name = "DOCGUID")
-        protected String DOCGUID;
+        protected String docguid;
         @XmlElement(name = "Delete")
-        protected Boolean Delete;
+        protected Boolean delete;
 
         /**
-         * Gets the value of the OBJECT_REF property.
+         * Gets the value of the objectref property.
          * 
          * @return
          *     possible object is
@@ -3921,11 +4870,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getOBJECTREF() {
-            return OBJECT_REF;
+            return objectref;
         }
 
         /**
-         * Sets the value of the OBJECT_REF property.
+         * Sets the value of the objectref property.
          * 
          * @param value
          *     allowed object is
@@ -3933,11 +4882,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setOBJECTREF(String value) {
-            this.OBJECT_REF = value;
+            this.objectref = value;
         }
 
         /**
-         * Gets the value of the ObjCommType property.
+         * Gets the value of the objCommType property.
          * 
          * @return
          *     possible object is
@@ -3945,11 +4894,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getObjCommType() {
-            return ObjCommType;
+            return objCommType;
         }
 
         /**
-         * Sets the value of the ObjCommType property.
+         * Sets the value of the objCommType property.
          * 
          * @param value
          *     allowed object is
@@ -3957,11 +4906,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setObjCommType(String value) {
-            this.ObjCommType = value;
+            this.objCommType = value;
         }
 
         /**
-         * Gets the value of the LINK property.
+         * Gets the value of the link property.
          * 
          * @return
          *     possible object is
@@ -3969,11 +4918,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getLINK() {
-            return LINK;
+            return link;
         }
 
         /**
-         * Sets the value of the LINK property.
+         * Sets the value of the link property.
          * 
          * @param value
          *     allowed object is
@@ -3981,11 +4930,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setLINK(String value) {
-            this.LINK = value;
+            this.link = value;
         }
 
         /**
-         * Gets the value of the DOCGUID property.
+         * Gets the value of the docguid property.
          * 
          * @return
          *     possible object is
@@ -3993,11 +4942,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCGUID() {
-            return DOCGUID;
+            return docguid;
         }
 
         /**
-         * Sets the value of the DOCGUID property.
+         * Sets the value of the docguid property.
          * 
          * @param value
          *     allowed object is
@@ -4005,11 +4954,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCGUID(String value) {
-            this.DOCGUID = value;
+            this.docguid = value;
         }
 
         /**
-         * Gets the value of the Delete property.
+         * Gets the value of the delete property.
          * 
          * @return
          *     possible object is
@@ -4017,11 +4966,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public Boolean isDelete() {
-            return Delete;
+            return delete;
         }
 
         /**
-         * Sets the value of the Delete property.
+         * Sets the value of the delete property.
          * 
          * @param value
          *     allowed object is
@@ -4029,7 +4978,7 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDelete(Boolean value) {
-            this.Delete = value;
+            this.delete = value;
         }
 
     }
@@ -4077,24 +5026,24 @@ public class REDataExchangeAttrECD {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-            "PARTNER_REF",
-            "LINK",
-            "DOCGUID",
-            "Delete"
+        "partnerref",
+        "link",
+        "docguid",
+        "delete"
     })
-    public static class PARTNER_REFS {
+    public static class PARTNERREFS {
 
         @XmlElement(name = "PARTNER_REF", required = true)
-        protected String PARTNER_REF;
+        protected String partnerref;
         @XmlElement(name = "LINK")
-        protected String LINK;
+        protected String link;
         @XmlElement(name = "DOCGUID", required = true)
-        protected String DOCGUID;
+        protected String docguid;
         @XmlElement(name = "Delete")
-        protected Boolean Delete;
+        protected Boolean delete;
 
         /**
-         * Gets the value of the PARTNER_REF property.
+         * Gets the value of the partnerref property.
          * 
          * @return
          *     possible object is
@@ -4102,11 +5051,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getPARTNERREF() {
-            return PARTNER_REF;
+            return partnerref;
         }
 
         /**
-         * Sets the value of the PARTNER_REF property.
+         * Sets the value of the partnerref property.
          * 
          * @param value
          *     allowed object is
@@ -4114,11 +5063,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setPARTNERREF(String value) {
-            this.PARTNER_REF = value;
+            this.partnerref = value;
         }
 
         /**
-         * Gets the value of the LINK property.
+         * Gets the value of the link property.
          * 
          * @return
          *     possible object is
@@ -4126,11 +5075,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getLINK() {
-            return LINK;
+            return link;
         }
 
         /**
-         * Sets the value of the LINK property.
+         * Sets the value of the link property.
          * 
          * @param value
          *     allowed object is
@@ -4138,11 +5087,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setLINK(String value) {
-            this.LINK = value;
+            this.link = value;
         }
 
         /**
-         * Gets the value of the DOCGUID property.
+         * Gets the value of the docguid property.
          * 
          * @return
          *     possible object is
@@ -4150,11 +5099,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public String getDOCGUID() {
-            return DOCGUID;
+            return docguid;
         }
 
         /**
-         * Sets the value of the DOCGUID property.
+         * Sets the value of the docguid property.
          * 
          * @param value
          *     allowed object is
@@ -4162,11 +5111,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDOCGUID(String value) {
-            this.DOCGUID = value;
+            this.docguid = value;
         }
 
         /**
-         * Gets the value of the Delete property.
+         * Gets the value of the delete property.
          * 
          * @return
          *     possible object is
@@ -4174,11 +5123,11 @@ public class REDataExchangeAttrECD {
          *     
          */
         public Boolean isDelete() {
-            return Delete;
+            return delete;
         }
 
         /**
-         * Sets the value of the Delete property.
+         * Sets the value of the delete property.
          * 
          * @param value
          *     allowed object is
@@ -4186,17 +5135,9 @@ public class REDataExchangeAttrECD {
          *     
          */
         public void setDelete(Boolean value) {
-            this.Delete = value;
+            this.delete = value;
         }
 
     }
-
-//    public byte[] getContent() {
-//        return this.Content;
-//    }
-//
-//    public void setContent(byte[] content) {
-//        this.Content = content;
-//    }
 
 }

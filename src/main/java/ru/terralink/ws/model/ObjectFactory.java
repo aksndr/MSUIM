@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the ru.terralink.ws.model package.
+ * generated in the ru.terralink.ws.model package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -25,10 +25,9 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _REAttrDataExchangeMessage_QNAME = new QName("http://inform.gazprom.ru/C/SUIM/REDataExchange", "REAttrDataExchangeMessage");
-    private final static QName _Content_QNAME = new QName("http://inform.gazprom.ru/C/SUIM/REDataExchange", "Content");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.ru.terralink.model
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.terralink.ws.model
      * 
      */
     public ObjectFactory() {
@@ -59,19 +58,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link REDataExchangeAttrECD.OBJECT_REFS }
+     * Create an instance of {@link REDataExchangeAttrECD.OBJECTREFS }
      * 
      */
-    public REDataExchangeAttrECD.OBJECT_REFS createREDataExchangeAttrECDOBJECTREFS() {
-        return new REDataExchangeAttrECD.OBJECT_REFS();
+    public REDataExchangeAttrECD.OBJECTREFS createREDataExchangeAttrECDOBJECTREFS() {
+        return new REDataExchangeAttrECD.OBJECTREFS();
     }
 
     /**
-     * Create an instance of {@link REDataExchangeAttrECD.PARTNER_REFS }
+     * Create an instance of {@link REDataExchangeAttrECD.PARTNERREFS }
      * 
      */
-    public REDataExchangeAttrECD.PARTNER_REFS createREDataExchangeAttrECDPARTNERREFS() {
-        return new REDataExchangeAttrECD.PARTNER_REFS();
+    public REDataExchangeAttrECD.PARTNERREFS createREDataExchangeAttrECDPARTNERREFS() {
+        return new REDataExchangeAttrECD.PARTNERREFS();
     }
 
     /**
@@ -155,25 +154,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link REDataExchangeAttrECD.BONIA }
-     * 
-     */
-    public REDataExchangeAttrECD.BONIA createREDataExchangeAttrECDBONIA() {
-        return new REDataExchangeAttrECD.BONIA();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link REDataExchangeAttrECD }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", name = "REAttrDataExchangeMessage")
     public JAXBElement<REDataExchangeAttrECD> createREAttrDataExchangeMessage(REDataExchangeAttrECD value) {
         return new JAXBElement<REDataExchangeAttrECD>(_REAttrDataExchangeMessage_QNAME, REDataExchangeAttrECD.class, null, value);
-    }
-
-    @XmlElementDecl(namespace = "http://inform.gazprom.ru/C/SUIM/REDataExchange", name = "Content")
-    public JAXBElement<byte[]> createContent(byte[] value) {
-        return new JAXBElement<byte[]>(_Content_QNAME, byte[].class, null, ((byte[]) value));
     }
 
 }
