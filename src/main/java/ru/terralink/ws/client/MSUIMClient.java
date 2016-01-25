@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by AzarovD on 22.01.2016.
  */
 
-public class MSUIMClient2 {
+public class MSUIMClient {
     @Autowired
     private ReplyHelper replyHelper;
     @Autowired
@@ -41,7 +41,7 @@ public class MSUIMClient2 {
 
     private static final String NAME_SPACE_URL = "http://inform.gazprom.ru/C/SUIM/REDataExchange";
     private static final String WS_NAME = "REAttrDataExchangeOutService";
-    private static final Logger logger = LoggerFactory.getLogger(MSUIMClient2.class.getSimpleName());
+    private static final Logger logger = LoggerFactory.getLogger(MSUIMClient.class.getSimpleName());
 
 
     public void init(String serviceUrl, String login, String password) {

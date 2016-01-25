@@ -14,7 +14,7 @@
        <bean id = "replyHeader" class="ru.terralink.ws.client.ReplyHelper"/>
        <bean id = "addAttachment" class="ru.terralink.ws.client.AddAttachment"/>
        <bean id = "addSection" class="ru.terralink.ws.client.AddSection"/>
-       <bean id = "msuimClient2" class="ru.terralink.ws.client.MSUIMClient2"/>
+       <bean id = "msuimClient" class="ru.terralink.ws.client.MSUIMClient"/>
 
        <bean id="reDataExchangeAttrECD" class="ru.terralink.ws.model.REDataExchangeAttrECD"/>
        <bean id="reDataExchangeAttrFile" class="ru.terralink.ws.model.REDataExchangeAttrFile"/>
