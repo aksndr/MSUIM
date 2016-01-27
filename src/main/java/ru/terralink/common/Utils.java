@@ -1,12 +1,7 @@
 package ru.terralink.common;//Created by Arzamastsev on 14.12.2015.
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -55,6 +50,7 @@ public class Utils {
 
     public static XMLGregorianCalendar stringToXMLGregorianCalendar(String s)
             throws ParseException, DatatypeConfigurationException {
+
         XMLGregorianCalendar result = null;
         Date date;
         SimpleDateFormat simpleDateFormat;

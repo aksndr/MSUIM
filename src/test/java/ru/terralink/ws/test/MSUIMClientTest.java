@@ -103,7 +103,7 @@ public class MSUIMClientTest {
         OBJECT_REFS.put("OBJECT_REF", "I000000000000000000825");
         OBJECT_REFS.put("ObjCommType", "te");
         OBJECT_REFS.put("LINK", "rt");
-        OBJECT_REFS.put("DOCGUID", "20150302");
+        OBJECT_REFS.put("DOCGUID", "");
         OBJECT_REFS.put("Delete", true);
 
         return OBJECT_REFS;
@@ -124,7 +124,7 @@ public class MSUIMClientTest {
         ANY.put("CUSTOMER", "text");
         ANY.put("CHILDORG", "text");
         ANY.put("XCHILDORG", "text");
-        ANY.put("periodbegin", "20150302");
+        ANY.put("periodbegin", null);
 //        ANY.put("CONSTRUCTOBJECT", "text");
 //        ANY.put("CONSTRUCTNAME", "text");
         ANY.put("PERIOD", "20150302");

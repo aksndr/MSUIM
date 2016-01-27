@@ -20,7 +20,7 @@ public class TransformationNameHelper {
         logger.info("Tranformation attributes name (remove '_' and to lower case): ");
         while (iterator.hasNext()) {
             Map.Entry<String, Object> entry = iterator.next();
-            String value = String.valueOf(entry.getValue());
+            String value = entry.getValue() != null ? String.valueOf(entry.getValue()) : null;
             String keyValue = transformationStringValue(entry.getKey());
             attributes.put(keyValue, value);
             iterator.remove();
