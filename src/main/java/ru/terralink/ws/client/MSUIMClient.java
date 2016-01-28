@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.CollectionUtils;
 import ru.terralink.common.mh.SoapMessageHandler;
 import ru.terralink.ws.model.REAttrDataExchangeOut;
 import ru.terralink.ws.model.REDataExchangeAttrECD;
@@ -80,14 +81,22 @@ public class MSUIMClient {
         logger.info("Start Do Work");
         try {
             REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
+
             List<REDataExchangeAttrFile> attrFiles = addAttachment.getAttrFiles();
-            logger.info("AttrFiles size = " + attrFiles.size());
-            for (REDataExchangeAttrFile attrFile : attrFiles) {
-                logger.info("AttrFile  = " + attrFile.getFILENAME());
-                message.setAttrFile(attrFile);
-                logger.info("AttrFile've edded addedREDataExchangeAttrECD");
+            if(CollectionUtils.isEmpty(attrFiles)){
+                logger.info("Pass request without attributes AttrFile");
                 reAttrDataExchangeOut.reAttrDataExchangeOut(message);
             }
+            else {
+                logger.info("Pass request with attributes AttrFile");
+                logger.info("List AttrFiles has size = " + attrFiles.size());
+                for (REDataExchangeAttrFile attrFile : attrFiles) {
+                    logger.info("AttrFile  = " + attrFile.getFILENAME());
+                    message.setAttrFile(attrFile);
+                    reAttrDataExchangeOut.reAttrDataExchangeOut(message);
+                }
+            }
+
         } catch (MalformedURLException e) {
             return replyHelper.failed("Error in doWork method. Exception: " + e.toString());
         } catch (Exception e) {
@@ -111,15 +120,21 @@ public class MSUIMClient {
         requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 25000);
         requestContext.put(BindingProvider.USERNAME_PROPERTY, login);
         requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
-        requestContext.put("chunks", addAttachment.getChunks().size());
 
-        SOAPBinding binding = (SOAPBinding) bp.getBinding();
-        List<Handler> handlerChain = binding.getHandlerChain();
-        mh.setChunks(addAttachment.getChunks());
-        mh.setMimeType(addAttachment.getMimeType());
-        mh.setContentId(addAttachment.getContentId());
-        handlerChain.add(mh);
-        binding.setHandlerChain(handlerChain);
+        List<byte[]> chunks = addAttachment.getChunks();
+        if(addAttachment.getAttrFiles() != null && chunks != null) {
+
+            requestContext.put("chunks", chunks.size());
+
+            SOAPBinding binding = (SOAPBinding) bp.getBinding();
+            List<Handler> handlerChain = binding.getHandlerChain();
+            mh.setChunks(chunks);
+            mh.setMimeType(addAttachment.getMimeType());
+            mh.setContentId(addAttachment.getContentId());
+            handlerChain.add(mh);
+            binding.setHandlerChain(handlerChain);
+        }
+
         return reAttrDataExchangeOut;
     }
 

@@ -64,7 +64,7 @@ public class AddAttachment {
                     String currentHash = Utils.getSha1Hash(chunk);
                     REDataExchangeAttrFile attrFile = new REDataExchangeAttrFile();
                     attrFile.setFileID(fileId);
-                    attrFile.setFILENAME(fileId);
+                    attrFile.setFILENAME(fileName);
                     attrFile.setNOMER(nomer);
                     attrFile.setUSERS(users);
                     attrFile.setUSERSTXT(userstxt);
