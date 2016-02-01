@@ -163,14 +163,14 @@ public class MSUIMClientTest {
 
         Map<String, Object> AttrFile = new HashMap<>();
         AttrFile.put("File_ID", "4673");
-        AttrFile.put("NOMER", 12);
+        AttrFile.put("NOMER", null);
         AttrFile.put("FILE_NAME", file.getName());
         AttrFile.put("USERS", "text");
         AttrFile.put("USERSTXT", "text");
-        AttrFile.put("DATUM", "19470202");
-        AttrFile.put("Delete", false);
+        AttrFile.put("DATUM", null);
+        AttrFile.put("Delete", true);
 
-        AttrFile.put("Content", Files.readAllBytes(file.toPath()));
+       // AttrFile.put("Content", Files.readAllBytes(file.toPath()));
 
         return AttrFile;
     }

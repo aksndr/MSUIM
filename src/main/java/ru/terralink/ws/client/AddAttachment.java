@@ -33,18 +33,8 @@ public class AddAttachment {
     public Map<String, Object> addAttachment(int partSize, Map<String, Object> attributes) {
         logger.info("Started addAttachment");
         if (attributes != null) {
+
             try {
-                if (!attributes.containsKey("Content")) {
-                    return replyHelper.failed("System does not received attachment content data");
-                }
-
-                byte[] content = (byte[]) attributes.get("Content");
-
-                if (content.length <= 0) {
-                    return replyHelper.failed("System does not received attachment content data");
-                }
-                logger.info("Attachment size: " + content.length);
-
                 String fileName = extractStringAttribute(attributes, "FILE_NAME");
                 String fileId = extractStringAttribute(attributes, "File_ID");
                 BigInteger nomer = extractBigIntegerAttribute(attributes, "NOMER");
@@ -53,6 +43,27 @@ public class AddAttachment {
                 XMLGregorianCalendar DATUM = extractXmlGregorianCalendarAttribute(attributes, "DATUM");
                 Boolean Delete = extractBooleanAttribute(attributes, "Delete");
 
+                if (Delete) {
+                    logger.info("Start synchronize for delete.");
+                    REDataExchangeAttrFile attrFile = buildReDataExchangeAttrFile(fileName, fileId, nomer, users, userstxt, DATUM, Delete);
+                    BigInteger emptyValue = BigInteger.valueOf(0);
+                    fillAttachmentData(attrFile, emptyValue.toString(), 0, emptyValue, emptyValue.toString());
+                    getAttrFiles().add(attrFile);
+
+                    logger.info("Finished fill node AttrFile");
+                    return replyHelper.succeed();
+                }
+
+                if (!attributes.containsKey("Content")) {
+                    return replyHelper.failed("System does not received attachment content data");
+                }
+
+                byte[] content = (byte[]) attributes.get("Content");
+                logger.info("Attachment size: " + content.length);
+                if (content.length <= 0) {
+                    return replyHelper.failed("System does not received attachment content data");
+                }
+
                 String allHash = Utils.getSha1Hash(content);
                 logger.info("allHash: " + allHash);
 
@@ -60,33 +71,44 @@ public class AddAttachment {
 
                 int currentPart = 1;
                 BigInteger totalParts = BigInteger.valueOf(chunks.size());
+
                 for (byte[] chunk : chunks) {
                     String currentHash = Utils.getSha1Hash(chunk);
-                    REDataExchangeAttrFile attrFile = new REDataExchangeAttrFile();
-                    attrFile.setFileID(fileId);
-                    attrFile.setFILENAME(fileName);
-                    attrFile.setNOMER(nomer);
-                    attrFile.setUSERS(users);
-                    attrFile.setUSERSTXT(userstxt);
-                    attrFile.setDATUM(DATUM);
-                    attrFile.setDelete(Delete);
-                    attrFile.setCurrentPart(BigInteger.valueOf(currentPart));
-                    attrFile.setCurrentHash(currentHash);
-                    attrFile.setAllParts(totalParts);
-                    attrFile.setAllHash(allHash);
-
+                    REDataExchangeAttrFile attrFile = buildReDataExchangeAttrFile(fileName, fileId, nomer, users, userstxt, DATUM, Delete);
+                    fillAttachmentData(attrFile, allHash, currentPart, totalParts, currentHash);
                     getAttrFiles().add(attrFile);
 
                     currentPart++;
                 }
+
+                logger.info("Finished fill node AttrFile with addAttachment\n");
             } catch (Exception e) {
-                return replyHelper.failed("Error in addAttachment method. Exception: " + e.toString());
+                return replyHelper.failed("Error in method addAttachment. Exception: " + e.toString());
             }
         } else {
             logger.warn("Got empty attachment args.");
         }
-        logger.info("Finished addAttachment\n");
+
         return replyHelper.succeed();
+    }
+
+    private REDataExchangeAttrFile buildReDataExchangeAttrFile(String fileName, String fileId, BigInteger nomer, String users, String userstxt, XMLGregorianCalendar DATUM, Boolean delete) {
+        REDataExchangeAttrFile attrFile = new REDataExchangeAttrFile();
+        attrFile.setFileID(fileId);
+        attrFile.setFILENAME(fileName);
+        attrFile.setNOMER(nomer);
+        attrFile.setUSERS(users);
+        attrFile.setUSERSTXT(userstxt);
+        attrFile.setDATUM(DATUM);
+        attrFile.setDelete(delete);
+        return attrFile;
+    }
+
+    private void fillAttachmentData(REDataExchangeAttrFile attrFile, String allHash, int currentPart, BigInteger totalParts, String currentHash) {
+        attrFile.setCurrentPart(BigInteger.valueOf(currentPart));
+        attrFile.setCurrentHash(currentHash);
+        attrFile.setAllParts(totalParts);
+        attrFile.setAllHash(allHash);
     }
 
     private void setAttachmentValue(int partSize, byte[] content, String fileName, String fileId) throws IOException {
@@ -105,14 +127,14 @@ public class AddAttachment {
     }
 
     private XMLGregorianCalendar extractXmlGregorianCalendarAttribute(Map<String, Object> attributes, String attrKey) throws ParseException, DatatypeConfigurationException {
-        XMLGregorianCalendar xmlGregorianCalendar = attributes.containsKey(attrKey) ?
+        XMLGregorianCalendar xmlGregorianCalendar = attributes.containsKey(attrKey) && attributes.get(attrKey) != null ?
                 Utils.stringToXMLGregorianCalendar(String.valueOf(attributes.get(attrKey))) : null;
         logger.info("Attribute " + attrKey + " : " + attrKey);
         return xmlGregorianCalendar;
     }
 
     private BigInteger extractBigIntegerAttribute(Map<String, Object> attributes, String attrKey) {
-        BigInteger value = BigInteger.valueOf(attributes.containsKey(attrKey) ? (Integer) attributes.get(attrKey) : 0);
+        BigInteger value = BigInteger.valueOf(attributes.containsKey(attrKey) && attributes.get(attrKey) != null ? (Integer) attributes.get(attrKey) : 0);
         logger.info("Attribute " + attrKey + " : " + value);
         return value;
     }

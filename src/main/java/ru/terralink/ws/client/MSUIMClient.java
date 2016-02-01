@@ -81,22 +81,18 @@ public class MSUIMClient {
         logger.info("Start Do Work");
         try {
             REAttrDataExchangeOut reAttrDataExchangeOut = getService(this.serviceUrl, this.login, this.password);
-
             List<REDataExchangeAttrFile> attrFiles = addAttachment.getAttrFiles();
-            if(CollectionUtils.isEmpty(attrFiles)){
-                logger.info("Pass request without attributes AttrFile");
+            if (CollectionUtils.isEmpty(attrFiles)) {
+                logger.info("Pass request without AttrFiles.");
                 reAttrDataExchangeOut.reAttrDataExchangeOut(message);
-            }
-            else {
-                logger.info("Pass request with attributes AttrFile");
+            } else {
                 logger.info("List AttrFiles has size = " + attrFiles.size());
                 for (REDataExchangeAttrFile attrFile : attrFiles) {
-                    logger.info("AttrFile  = " + attrFile.getFILENAME());
+                    logger.info("AttrFile ID  = " + attrFile.getFileID());
                     message.setAttrFile(attrFile);
                     reAttrDataExchangeOut.reAttrDataExchangeOut(message);
                 }
             }
-
         } catch (MalformedURLException e) {
             return replyHelper.failed("Error in doWork method. Exception: " + e.toString());
         } catch (Exception e) {
@@ -122,7 +118,7 @@ public class MSUIMClient {
         requestContext.put(BindingProvider.PASSWORD_PROPERTY, pass);
 
         List<byte[]> chunks = addAttachment.getChunks();
-        if(addAttachment.getAttrFiles() != null && chunks != null) {
+        if (addAttachment.getAttrFiles() != null && chunks != null) {
 
             requestContext.put("chunks", chunks.size());
 
